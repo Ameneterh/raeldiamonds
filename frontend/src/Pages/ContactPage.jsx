@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
+import { company_info } from "../assets/company_info.js";
 
 export default function ContactPage() {
   return (
@@ -39,39 +40,39 @@ export default function ContactPage() {
               <span className="flex items-center gap-1">
                 <MdEmail className="text-red-600" size={20} />
                 <Link
-                  to="mailto:contact@pharmazone.com.ng"
+                  to={`mailto:${company_info.email}`}
                   className="hover:underline underline-offset-2"
                 >
-                  ameneterh@gmail.com
+                  {company_info.email}
                 </Link>
               </span>
               <span className="flex items-center gap-1">
                 <MdPhoneInTalk className="text-blue-600" size={20} />
                 <Link
-                  to="tel:2349044868438"
+                  to={`tel:${company_info.call_number}`}
                   className="hover:underline underline-offset-2"
                 >
-                  +234 904 486 8438
+                  {company_info.call_number}
                 </Link>
               </span>
               <span className="flex items-center gap-1">
                 <FaWhatsappSquare className="text-green-600" size={20} />
                 <Link
-                  to="https://wa.me/2349044868438"
+                  to={`https://wa.me/${company_info.whatsapp_number}`}
                   className="hover:underline underline-offset-2"
                 >
-                  +234 904 486 8438
+                  {company_info.whatsapp_number}
                 </Link>
               </span>
-              <span className="flex items-center gap-1">
+              {/* <span className="flex items-center gap-1">
                 <FaTelegram className="text-blue-600" size={20} />
                 <Link
-                  to="https://t.me/RaelDiamonds"
+                  to={`https://t.me/${company_info.socials[5].name}`}
                   className="hover:underline underline-offset-2"
                 >
-                  RaelDiamonds
+                  {company_info.socials[5].name}
                 </Link>
-              </span>
+              </span> */}
             </p>
 
             {/* follow buttons */}
@@ -79,21 +80,13 @@ export default function ContactPage() {
               Follow Rael Diamonds:
             </p>
             <p className="flex items-center gap-2">
-              <Link to="https://www.facebook.com/" target="_blank">
-                <FaFacebookSquare className="text-2xl text-blue-700 hover:scale-125 transition-all duration-300" />
-              </Link>
-              <Link to="https://instagram.com/" target="_blank">
-                <FaInstagramSquare className="text-2xl text-red-800 hover:scale-125 transition-all duration-300" />
-              </Link>
-              {/* <Link
-                to="https://www.linkedin.com/in/terhemen-amene-53b77293/"
-                target="_blank"
-              >
-                <FaLinkedin className="text-2xl text-blue-800 hover:scale-125 transition-all duration-300" />
-              </Link> */}
-              <Link to="https://twitter.com/" target="_blank">
-                <FaTwitterSquare className="text-2xl text-blue-950 hover:scale-125 transition-all duration-300" />
-              </Link>
+              {company_info.socials.map((social, index) => (
+                <Link to={social.url} target="_blank" key={index}>
+                  <social.icon
+                    className={`text-xl hover:scale-125 transition-all duration-300 text-${social.color}`}
+                  />
+                </Link>
+              ))}
             </p>
           </div>
         </div>
