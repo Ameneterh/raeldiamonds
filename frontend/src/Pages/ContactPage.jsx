@@ -64,7 +64,7 @@ export default function ContactPage() {
                   {company_info.whatsapp_number}
                 </Link>
               </span>
-              {/* <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1">
                 <FaTelegram className="text-blue-600" size={20} />
                 <Link
                   to={`https://t.me/${company_info.socials[5].name}`}
@@ -72,7 +72,7 @@ export default function ContactPage() {
                 >
                   {company_info.socials[5].name}
                 </Link>
-              </span> */}
+              </span>
             </p>
 
             {/* follow buttons */}
