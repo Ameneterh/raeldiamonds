@@ -30,7 +30,7 @@ mongoose
   .catch((error) => console.log(error));
 
 app.use("/backend/v1/auth", userRouter);
-// app.use("/backend/products", productRouter);
+app.use("/backend/v1/products", productRouter);
 // app.use("/backend/bids", bidsRouter);
 // app.use("/backend/notifications", notificationsRouter);
 // app.use("/backend/reviews", reviewsRouter);

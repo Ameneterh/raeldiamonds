@@ -130,7 +130,7 @@ router.post(
         message: error.message,
       });
     }
-  }
+  },
 );
 
 // edit a product

@@ -5,7 +5,7 @@ export const AddProduct = async (payload) => {
   try {
     const response = await axiosInstance.post(
       "/backend/products/add-product",
-      payload
+      payload,
     );
     return response.data;
   } catch (error) {
@@ -17,8 +17,8 @@ export const AddProduct = async (payload) => {
 export const GetProducts = async (filters) => {
   try {
     const response = await axiosInstance.post(
-      "/backend/products/get-products",
-      filters
+      "/backend/v1/products/get-products",
+      filters,
     );
     return response.data;
   } catch (error) {
@@ -30,7 +30,7 @@ export const GetProducts = async (filters) => {
 export const DeleteProduct = async (id) => {
   try {
     const response = await axiosInstance.delete(
-      `/backend/products/delete-product/${id}`
+      `/backend/products/delete-product/${id}`,
     );
     return response.data;
   } catch (error) {
@@ -43,7 +43,7 @@ export const UploadProductImage = async (payload) => {
   try {
     const response = await axiosInstance.post(
       "/backend/products//upload-image-to-product",
-      payload
+      payload,
     );
     return response.data;
   } catch (error) {
@@ -56,7 +56,7 @@ export const UpdateProductStatus = async (status, id) => {
   try {
     const response = await axiosInstance.put(
       `/backend/products/update-product-status/${id}`,
-      { status }
+      { status },
     );
     return response.data;
   } catch (error) {
@@ -68,7 +68,7 @@ export const UpdateProductStatus = async (status, id) => {
 export const GetProductById = async (id) => {
   try {
     const response = await axiosInstance.get(
-      `/backend/products/get-product-by-id/${id}`
+      `/backend/products/get-product-by-id/${id}`,
     );
     return response.data;
   } catch (error) {
@@ -81,7 +81,7 @@ export const EditProduct = async (id, payload) => {
   try {
     const response = await axiosInstance.put(
       `/backend/products/edit-product/${id}`,
-      payload
+      payload,
     );
     return response.data;
   } catch (error) {
@@ -96,7 +96,7 @@ export const PlaceNewBid = async (payload) => {
   try {
     const response = await axiosInstance.post(
       "/backend/bids/place-new-bid",
-      payload
+      payload,
     );
     return response.data;
   } catch (error) {
@@ -109,7 +109,7 @@ export const GetAllBids = async (filters) => {
   try {
     const response = await axiosInstance.post(
       "/backend/bids/get-all-bids",
-      filters
+      filters,
     );
     return response.data;
   } catch (error) {
@@ -123,7 +123,7 @@ export const AddReview = async (payload) => {
   try {
     const response = await axiosInstance.post(
       `/backend/reviews/new-review/`,
-      payload
+      payload,
     );
     return response.data;
   } catch (error) {
@@ -136,7 +136,7 @@ export const GetAllReviews = async (filters) => {
   try {
     const response = await axiosInstance.post(
       "/backend/reviews/get-all-reviews",
-      filters
+      filters,
     );
     return response.data;
   } catch (error) {

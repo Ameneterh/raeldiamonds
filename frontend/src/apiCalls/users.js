@@ -5,7 +5,7 @@ export const RegisterUser = async (payload) => {
   try {
     const response = await axiosInstance.post(
       "/backend/users/register",
-      payload
+      payload,
     );
     return response.data;
   } catch (error) {
@@ -16,7 +16,10 @@ export const RegisterUser = async (payload) => {
 // login user
 export const LoginUser = async (payload) => {
   try {
-    const response = await axiosInstance.post("/backend/users/login", payload);
+    const response = await axiosInstance.post(
+      "/backend/vi/auth/login",
+      payload,
+    );
     return response.data;
   } catch (error) {
     return error.message;
@@ -26,7 +29,9 @@ export const LoginUser = async (payload) => {
 // get current user
 export const GetCurrentUser = async () => {
   try {
-    const response = await axiosInstance.get("/backend/users/get-current-user");
+    const response = await axiosInstance.get(
+      "/backend/v1/auth/get-current-user",
+    );
     return response.data;
   } catch (error) {
     return error.message;
@@ -48,7 +53,7 @@ export const UpdateUserStatus = async (status, id) => {
   try {
     const response = await axiosInstance.put(
       `/backend/users/update-user-status/${id}`,
-      { status }
+      { status },
     );
     return response.data;
   } catch (error) {
@@ -61,7 +66,7 @@ export const EditUser = async (id, payload) => {
   try {
     const response = await axiosInstance.put(
       `/backend/users/edit-user/${id}`,
-      payload
+      payload,
     );
     return response.data;
   } catch (error) {
@@ -74,7 +79,7 @@ export const UploadUserImage = async (payload) => {
   try {
     const response = await axiosInstance.post(
       "/backend/users//upload-user-image",
-      payload
+      payload,
     );
     return response.data;
   } catch (error) {

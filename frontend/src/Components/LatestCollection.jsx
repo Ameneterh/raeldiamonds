@@ -4,22 +4,23 @@ import TitleText from "./TitleText";
 import ProductItem from "./ProductItem";
 import { GetProducts } from "../apiCalls/products";
 import { message } from "antd";
+import { products } from "../assets/assets.js";
+import { Link } from "react-router-dom";
 
 export default function LatestCollection() {
   // const { products } = useContext(ShopContext);
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [latestProducts, setLatestProducts] = useState([]);
 
   const getData = async () => {
-    try {
-      const response = await GetProducts(null);
-
-      if (response.success) {
-        setProducts(response.data);
-      }
-    } catch (error) {
-      message.error(error.message);
-    }
+    // try {
+    //   const response = await GetProducts(null);
+    //   if (response.success) {
+    //     setProducts(response.data);
+    //   }
+    // } catch (error) {
+    //   message.error(error.message);
+    // }
   };
 
   useEffect(() => {
@@ -43,12 +44,21 @@ export default function LatestCollection() {
           <ProductItem
             key={index}
             id={product._id}
-            image={product.images[0]}
-            name={product.product_name}
+            image={product.image[0]}
+            name={product.name}
             category={product.category.split("_").join(" & ")}
-            asking_price={product.asking_price}
+            asking_price={product.price}
           />
         ))}
+      </div>
+
+      <div className="flex justify-center w-full">
+        <Link
+          to="/collections"
+          className="block text-center bg-blue-600 hover:bg-blue-800 text-white px-3 py-2 rounded mt-6 hover:scale-x-110 transition-all duration-300 w-fit"
+        >
+          View All Collections
+        </Link>
       </div>
     </div>
   );

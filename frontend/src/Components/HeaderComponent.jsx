@@ -20,16 +20,15 @@ export default function HeaderComponent() {
   const [showNofications, setShowNotifications] = useState(false);
 
   const validateToken = async () => {
-    try {
-      const response = await GetCurrentUser();
-
-      if (response.success) {
-      } else {
-        message.error(response.message);
-      }
-    } catch (error) {
-      message.error(error.message);
-    }
+    // try {
+    //   const response = await GetCurrentUser();
+    //   if (response.success) {
+    //   } else {
+    //     message.error(response.message);
+    //   }
+    // } catch (error) {
+    //   message.error(error.message);
+    // }
   };
 
   const getNotifications = async () => {
@@ -165,12 +164,12 @@ export default function HeaderComponent() {
             </Badge>
           </div>
         ) : (
-          <div
-            onClick={() => navigate("/login")}
+          <Link
+            to="/login"
             className="bg-blue-500 rounded px-4 py-1 text-lg text-white cursor-pointer"
           >
             Login
-          </div>
+          </Link>
         )}
 
         {/* <Link to={"/cart"} className="relative">

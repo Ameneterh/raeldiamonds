@@ -170,7 +170,7 @@ router.post(
         message: error.message,
       });
     }
-  }
+  },
 );
 
 export default router;

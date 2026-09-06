@@ -8,7 +8,6 @@ import { LoginUser } from "../apiCalls/users";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -20,18 +19,18 @@ export default function LoginPage() {
   ];
 
   const handleFormSubmit = async (values) => {
-    try {
-      const response = await LoginUser(values);
-      if (response.success) {
-        message.success(response.message);
-        localStorage.setItem("token", response.data);
-        window.location.href = "/";
-      } else {
-        throw new Error(response.message);
-      }
-    } catch (error) {
-      message.error(error.message);
-    }
+    // try {
+    //   const response = await LoginUser(values);
+    //   if (response.success) {
+    //     message.success(response.message);
+    //     localStorage.setItem("token", response.data);
+    //     window.location.href = "/";
+    //   } else {
+    //     throw new Error(response.message);
+    //   }
+    // } catch (error) {
+    //   message.error(error.message);
+    // }
   };
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function LoginPage() {
           </Form.Item>
 
           {/* passwird input */}
-          <Form.Item label="Password" name={"password"} rules={rules}>
+          {/* <Form.Item label="Password" name={"password"} rules={rules}>
             <div className="flex items-center">
               <Input
                 type={`${showPassword ? "text" : "password"}`}
@@ -71,9 +70,9 @@ export default function LoginPage() {
                 )}
               </div>
             </div>
-          </Form.Item>
+          </Form.Item> */}
 
-          <div className="my-6">
+          {/* <div className="my-6">
             <label
               htmlFor="avatar"
               className="block text-sm font-medium text-gray-700"
@@ -88,7 +87,7 @@ export default function LoginPage() {
             <Link to="/register" className="text-primary ml-1">
               Register here
             </Link>
-          </div>
+          </div> */}
         </Form>
       </div>
     </div>
