@@ -33,29 +33,29 @@ export default function HeaderComponent() {
   };
 
   const getNotifications = async () => {
-    try {
-      const response = await GetAllNotifications();
-      if (response.success) {
-        setNotifications(response.data);
-      } else {
-        throw new Error(response.message);
-      }
-    } catch (error) {
-      message.error(error.message);
-    }
+    // try {
+    //   const response = await GetAllNotifications();
+    //   if (response.success) {
+    //     setNotifications(response.data);
+    //   } else {
+    //     throw new Error(response.message);
+    //   }
+    // } catch (error) {
+    //   message.error(error.message);
+    // }
   };
 
   const readNotifications = async () => {
-    try {
-      const response = await ReadAllNotifications();
-      if (response.success) {
-        getNotifications();
-      } else {
-        throw new Error(response.message);
-      }
-    } catch (error) {
-      message.error(error.message);
-    }
+    // try {
+    //   const response = await ReadAllNotifications();
+    //   if (response.success) {
+    //     getNotifications();
+    //   } else {
+    //     throw new Error(response.message);
+    //   }
+    // } catch (error) {
+    //   message.error(error.message);
+    // }
   };
 
   useEffect(() => {

@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import path from "path";
 
-// import cors from "cors";
+import cors from "cors";
 
 dotenv.config();
 
@@ -29,7 +29,7 @@ mongoose
   .then(() => console.log(`Connected to MongoDb Database!`))
   .catch((error) => console.log(error));
 
-app.use("/backend/v1/auth", authRouter);
+app.use("/backend/v1/auth", userRouter);
 // app.use("/backend/products", productRouter);
 // app.use("/backend/bids", bidsRouter);
 // app.use("/backend/notifications", notificationsRouter);
