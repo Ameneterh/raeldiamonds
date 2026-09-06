@@ -9,29 +9,34 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import path from "path";
 
+// import cors from "cors";
+
 dotenv.config();
 
 // deployment config
 const __dirname = path.resolve();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+
 app.use(express.json());
 app.use(cookieParser());
 
 mongoose
   .connect(process.env.MONGO_URL)
-  .then(() => console.log("Connected to MongoDb Database!"))
+  .then(() => console.log(`Connected to MongoDb Database!`))
   .catch((error) => console.log(error));
 
-const PORT = process.env.PORT || 5000;
-
-app.use("/backend/v1/users", userRouter);
-app.use("/backend/v1/products", productRouter);
-app.use("/backend/v1/bids", bidsRouter);
-app.use("/backend/v1/notifications", notificationsRouter);
-app.use("/backend/v1/reviews", reviewsRouter);
+app.use("/backend/v1/auth", authRouter);
+// app.use("/backend/products", productRouter);
+// app.use("/backend/bids", bidsRouter);
+// app.use("/backend/notifications", notificationsRouter);
+// app.use("/backend/reviews", reviewsRouter);
 
 // render deployment
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
   app.get("*", (req, res) => {
@@ -39,4 +44,11 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));
+// app.use(express.static(path.join(__dirname, "/frontend/dist")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+// });
+
+app.listen(PORT, () =>
+  console.log(`Node/Express Server is running on Port ${PORT}`),
+);
