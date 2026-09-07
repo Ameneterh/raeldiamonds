@@ -4,7 +4,7 @@ import HeroComponent from "../Components/HeroComponent";
 import LatestCollection from "../Components/LatestCollection";
 import BestSeller from "../Components/BestSeller";
 import OurPolicy from "../Components/OurPolicy";
-// import NewsletterBox from "../Components/NewsLetterBox";
+import SubscriptionComponent from "../Components/SubscriptionComponent";
 
 export default function HomePage() {
   return (
@@ -14,7 +14,7 @@ export default function HomePage() {
       <LatestCollection />
       {/* <BestSeller /> */}
       {/* <OurPolicy /> */}
-      {/* <NewsletterBox /> */}
+      <SubscriptionComponent />
       {/* </div> */}
     </MainLayout>
   );

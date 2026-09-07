@@ -23,6 +23,7 @@ import support_247 from "./247-support.png";
 import wide_products from "./wide-products.jpg";
 import convenience from "./convenience.png";
 import logo from "./logo.png";
+import email_sub from "./email-sub.png";
 
 // images for new products line
 import belt_1 from "./belt_1.jpeg";
@@ -52,6 +53,7 @@ export const assets = {
   wide_products,
   convenience,
   logo,
+  image: email_sub,
 };
 
 export const products = [
