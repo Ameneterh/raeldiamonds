@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MdArrowForwardIos, MdNotificationsActive } from "react-icons/md";
+import { FaShoppingCart } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { assets } from "../assets/assets.js";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -18,6 +19,8 @@ export default function HeaderComponent() {
   const [visible, setVisible] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [showNofications, setShowNotifications] = useState(false);
+
+  const [openCart, setOpenCart] = useState(false);
 
   const validateToken = async () => {
     // try {
@@ -83,19 +86,31 @@ export default function HeaderComponent() {
 
       {/* links */}
       <ul className="hidden sm:flex gap-5 text-sm text-gray-800">
-        <NavLink to="/" className={`flex flex-col items-center`}>
+        <NavLink
+          to="/"
+          className={`flex flex-col items-center hover:scale-110 transition-all duration-300`}
+        >
           <p>Home</p>
           <hr className="w-full border-none h-[1.5px] bg-gray-800 hidden" />
         </NavLink>
-        <NavLink to="/collections" className={`flex flex-col items-center`}>
+        <NavLink
+          to="/collections"
+          className={`flex flex-col items-center hover:scale-110 transition-all duration-300`}
+        >
           <p>Collection</p>
           <hr className="w-full border-none h-[1.5px] bg-gray-800 hidden" />
         </NavLink>
-        <NavLink to="/about" className={`flex flex-col items-center`}>
+        <NavLink
+          to="/about"
+          className={`flex flex-col items-center hover:scale-110 transition-all duration-300`}
+        >
           <p>About</p>
           <hr className="w-full border-none h-[1.5px] bg-gray-800 hidden" />
         </NavLink>
-        <NavLink to="/contact" className={`flex flex-col items-center`}>
+        <NavLink
+          to="/contact"
+          className={`flex flex-col items-center hover:scale-110 transition-all duration-300`}
+        >
           <p>Contact</p>
           <hr className="w-full border-none h-[1.5px] bg-gray-800 hidden" />
         </NavLink>
@@ -166,18 +181,18 @@ export default function HeaderComponent() {
         ) : (
           <Link
             to="/login"
-            className="bg-blue-500 rounded px-4 py-1 text-lg text-white cursor-pointer"
+            className="bg-blue-600 hover:bg-blue-900 hover:scale-110 transition-all duration-300 rounded px-4 py-1 text-lg text-white cursor-pointer"
           >
             Login
           </Link>
         )}
 
-        {/* <Link to={"/cart"} className="relative">
+        <Link to={"/cart"} className="relative">
           <FaShoppingCart className="text-xl text-black" />
           <p className="absolute -right-2 -top-2 w-4 text-center leading-4 bg-red-700 text-white aspect-square rounded-full text-[8px]">
-            {getCartCount()}
+            {/* {getCartCount()} */}3
           </p>
-        </Link> */}
+        </Link>
 
         <FiMenu
           className="text-xl cursor-pointer sm:hidden"

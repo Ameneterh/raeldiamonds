@@ -22,7 +22,7 @@ export const company_info = {
   socials: [
     {
       title: "TikTok",
-      name: "Rael_diamonds",
+      name: "@Rael_diamonds",
       url: "https://www.tiktok.com/",
       color: "black",
       icon: FaTiktok,
@@ -34,13 +34,13 @@ export const company_info = {
       color: "red-600",
       icon: FaInstagram,
     },
-    // {
-    //   title: "Twitter",
-    //   name: "raeldiamonds",
-    //   url: "https://www.twitter.com/",
-    //   color: "black",
-    //   icon: FaXTwitter,
-    // },
+    {
+      title: "Twitter",
+      name: "@Rael_Diamonds",
+      url: "https://www.twitter.com/",
+      color: "black",
+      icon: FaXTwitter,
+    },
     // {
     //   title: "WhatsApp",
     //   name: "+2349044868438",

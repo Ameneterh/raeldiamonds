@@ -15,7 +15,7 @@ import hero_img from "./heroimage.png";
 import exchange_icon from "./exchange_icon.png";
 import quality_icon from "./quality_icon.png";
 import support_icon from "./support_img.png";
-import about_img from "./about_img.jpg";
+import about_img from "./about_img.png";
 import contact_img from "./contact_img.jpg";
 import exceptional_logo from "./exceptional-logo.png";
 import exclucive_offer from "./exclusive-offer.jpg";

@@ -22,7 +22,7 @@ export default function FooterComponent() {
           </Link>
 
           <p className="w-full md:w-2/3 text-gray-600 text-sm">
-            <b>A world of convenience and quality at your fingertips.</b>
+            <b>A world of convenience and quality at your fingertips. </b>
             Whether you're looking for the latest fashion & fashion accessories,
             jewelery or unique gifts, our e-shop has it all. Enjoy hassle-free
             shopping, secure payment options, and fast delivery, all from the
@@ -33,10 +33,24 @@ export default function FooterComponent() {
         <div>
           <p className="text-xl font-medium mb-2">COMPANY</p>
           <ul className="flex flex-col gap-1 text-gray-600">
-            <Link to="/">Home</Link>
-            <Link to="/about">About Us</Link>
-            <Link to="/privacy-policy">Privacy Policy</Link>
-            <Link to="/terms-of-use">Terms of Use</Link>
+            <Link to="/" className="hover:underline underline-offset-2">
+              Home
+            </Link>
+            <Link to="/about" className="hover:underline underline-offset-2">
+              About Us
+            </Link>
+            <Link
+              to="/privacy-policy"
+              className="hover:underline underline-offset-2"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              to="/terms-of-use"
+              className="hover:underline underline-offset-2"
+            >
+              Terms of Use
+            </Link>
           </ul>
         </div>
 
@@ -45,7 +59,7 @@ export default function FooterComponent() {
           <ul className="flex flex-col gap-1 text-gray-600">
             <Link
               to={`mailto:${company_info.email}`}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 hover:underline underline-offset-2"
             >
               <MdMarkEmailUnread />
               {company_info.email}
@@ -53,14 +67,14 @@ export default function FooterComponent() {
             <Link
               to={`https://wa.me/${company_info.whatsapp_number}`}
               target="_blank"
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 hover:underline underline-offset-2"
             >
               <MdWhatsapp />
               {company_info.whatsapp_number}
             </Link>
             <Link
               to={`tel:${company_info.call_number}`}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 hover:underline underline-offset-2"
             >
               <MdPhoneInTalk />
               {company_info.call_number}
@@ -71,7 +85,7 @@ export default function FooterComponent() {
       <div>
         <hr />
         <p className="py-5 text-sm text-center">
-          Copyright {date.getFullYear()}{" "}
+          Designed & Maintained by
           <Link
             to="https://ameneterh-portfolio.onrender.com"
             target="_blank"
