@@ -5,10 +5,10 @@ import FooterComponent from "../Components/FooterComponent";
 
 export default function MainLayout({ children }) {
   return (
-    <div className="w-full md:max-w-7xl px-2 md:px-0 min-h-[80svh] sm:mx-auto">
+    <div className="w-full min-h-screen">
       <HeaderComponent />
       {/* <SearchBar /> */}
-      <main className="px-4 md:px-0 sm:py-14">{children}</main>
+      <main className="px-4 md:px-0">{children}</main>
       {window.location.pathname === "/authentication" ? (
         <></>
       ) : (

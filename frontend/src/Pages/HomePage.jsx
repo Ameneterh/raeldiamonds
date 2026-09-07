@@ -9,13 +9,13 @@ import OurPolicy from "../Components/OurPolicy";
 export default function HomePage() {
   return (
     <MainLayout>
-      <div className="">
-        <HeroComponent />
-        <LatestCollection />
-        {/* <BestSeller /> */}
-        {/* <OurPolicy /> */}
-        {/* <NewsletterBox /> */}
-      </div>
+      {/* <div className=""> */}
+      <HeroComponent />
+      <LatestCollection />
+      {/* <BestSeller /> */}
+      {/* <OurPolicy /> */}
+      {/* <NewsletterBox /> */}
+      {/* </div> */}
     </MainLayout>
   );
 }
