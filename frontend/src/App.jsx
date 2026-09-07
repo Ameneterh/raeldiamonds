@@ -32,7 +32,7 @@ function App() {
         <Route path="/terms-of-use" element={<TermsOfUse />} />
         <Route path="/collections" element={<CollectionsPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/product/:productId" element={<ProductPage />} />
+        <Route path="/product/:slug" element={<ProductPage />} />
 
         {/* protected routes */}
         <Route

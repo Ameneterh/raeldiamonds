@@ -2,6 +2,7 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
 import { MdMarkEmailUnread, MdPhoneInTalk, MdWhatsapp } from "react-icons/md";
+import { company_info } from "../assets/company_info.js";
 
 export default function FooterComponent() {
   const date = new Date();
@@ -10,13 +11,22 @@ export default function FooterComponent() {
     <div className="border-t-2 border-solid border-l-transparent border-r-transparent border-b-transparent border-gray-300">
       <div className="px-4 flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 text-sm">
         <div>
-          <img src={assets.nav_img} className="w-36 sm:w-44 mb-2" alt="" />
+          <Link to="/" className="flex items-center gap-1">
+            <img src={assets.logo} className="w-8 sm:w-16 rounded-full" />
+            <div className="hidden md:flex flex-col md:text-5xl font-extrabold text-black leading-3">
+              <span>Rael</span>
+              <span className="-mt-2 hidden md:block text-gray-700 text-xl">
+                Diamonds
+              </span>
+            </div>
+          </Link>
+
           <p className="w-full md:w-2/3 text-gray-600 text-sm">
             <b>A world of convenience and quality at your fingertips.</b>
-            Whether you're looking for the latest fashion, electronics, home
-            essentials, or unique gifts, our e-shop has it all. Enjoy
-            hassle-free shopping, secure payment options, and fast delivery, all
-            from the comfort of your home.
+            Whether you're looking for the latest fashion & fashion accessories,
+            jewelery or unique gifts, our e-shop has it all. Enjoy hassle-free
+            shopping, secure payment options, and fast delivery, all from the
+            comfort of your home.
           </p>
         </div>
 
@@ -34,23 +44,26 @@ export default function FooterComponent() {
           <p className="text-xl font-medium mb-2">GET IN TOUCH</p>
           <ul className="flex flex-col gap-1 text-gray-600">
             <Link
-              to="mailto:ameneterh@gmail.com"
+              to={`mailto:${company_info.email}`}
               className="flex items-center gap-1"
             >
               <MdMarkEmailUnread />
-              ameneterh@gmail.com
+              {company_info.email}
             </Link>
             <Link
-              to="https://wa.me/2348154230654"
+              to={`https://wa.me/${company_info.whatsapp_number}`}
               target="_blank"
               className="flex items-center gap-1"
             >
               <MdWhatsapp />
-              08154230654
+              {company_info.whatsapp_number}
             </Link>
-            <Link to="tel:+2348154230654" className="flex items-center gap-1">
+            <Link
+              to={`tel:${company_info.call_number}`}
+              className="flex items-center gap-1"
+            >
               <MdPhoneInTalk />
-              08154230654
+              {company_info.call_number}
             </Link>
           </ul>
         </div>

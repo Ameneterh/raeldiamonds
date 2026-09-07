@@ -54,7 +54,7 @@ export default function ProductReviewRating({ getData, product }) {
         // send notification to seller
         await AddNotification({
           title: "A New Review has been placed",
-          message: `"${user.fullname}" has added a review on your product, "${product.product_name}"`,
+          message: `"${user.name}" has added a review on your product, "${product.name}"`,
           user: product.seller._id,
           onClick: "/seller-profile",
           read: false,

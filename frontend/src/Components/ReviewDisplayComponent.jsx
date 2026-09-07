@@ -9,8 +9,8 @@ export default function ReviewDisplayComponent({
   createdAt,
 }) {
   return (
-    <div className="flex items-start gap-1 bg-gray-50 rounded shadow-sm">
-      <img src={avatar} alt={name} className="w-14 h-14" />
+    <div className="flex items-start gap-1 bg-gray-100 rounded-md shadow-sm p-2">
+      <img src={avatar} alt={name} className="w-10 h-10" />
       <div className="py-1 w-full pr-3 flex flex-col gap-1">
         <div className="w-ful">
           <div className="flex justify-between items-center w-ful">

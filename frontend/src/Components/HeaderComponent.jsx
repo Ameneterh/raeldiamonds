@@ -73,7 +73,7 @@ export default function HeaderComponent() {
     <div className="flex items-center justify-between py-5 px-2 font-medium sticky top-0 z-40 text-[12px] bg-white border-t-0 border-l-0 border-r-0 border-b-[1.5px] border-solid border-b-gray-300">
       <Link to="/" className="flex items-center gap-1">
         <img src={assets.logo} className="w-8 sm:w-16 rounded-full" />
-        <div className="flex flex-col md:text-5xl font-extrabold text-black leading-3">
+        <div className="hidden md:flex flex-col md:text-5xl font-extrabold text-black leading-3">
           <span>Rael</span>
           <span className="-mt-2 hidden md:block text-gray-700 text-xl">
             Diamonds

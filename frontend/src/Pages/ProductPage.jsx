@@ -6,11 +6,11 @@ import {
   FaSquareWhatsapp,
   FaRegFaceSadTear,
 } from "react-icons/fa6";
+import { TbCurrencyNaira } from "react-icons/tb";
 import { MdAddIcCall, MdCall } from "react-icons/md";
 import { AiOutlineProduct } from "react-icons/ai";
 import MainLayout from "../layout/MainLayout";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ShopContext } from "../context/shopContext";
 import RelatedProducts from "../Components/RelatedProducts";
 import {
   GetAllBids,
@@ -24,35 +24,34 @@ import BidsModal from "./sellerProfile/BidsModal";
 import ProductReviewRating from "../Components/ProductReviewRating";
 import ReviewDisplayComponent from "../Components/ReviewDisplayComponent";
 import RatingComponent from "../Components/RatingComponent";
+import { products } from "../assets/assets";
 
 export default function ProductPage() {
   const navigate = useNavigate();
 
-  const [product, setProduct] = useState(null);
+  // const [product, setProduct] = useState(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showAddBidsModal, setShowAddBidsModal] = useState(false);
 
-  const { productId } = useParams();
-  const { currency } = useContext(ShopContext);
+  const { slug } = useParams();
 
-  // console.log(product.reviews);
+  const product = products.find((item) => item.slug === slug);
 
   const getData = async () => {
-    try {
-      const response = await GetProductById(productId);
-
-      if (response.success) {
-        const bidsResponse = await GetAllBids({ product: productId });
-        const reviewsResponse = await GetAllReviews({ product: productId });
-        setProduct({
-          ...response.data,
-          bids: bidsResponse.data,
-          reviews: reviewsResponse.data,
-        });
-      }
-    } catch (error) {
-      message.error(error.message);
-    }
+    // try {
+    //   const response = await GetProductById(productId);
+    //   if (response.success) {
+    //     const bidsResponse = await GetAllBids({ product: productId });
+    //     const reviewsResponse = await GetAllReviews({ product: productId });
+    //     setProduct({
+    //       ...response.data,
+    //       bids: bidsResponse.data,
+    //       reviews: reviewsResponse.data,
+    //     });
+    //   }
+    // } catch (error) {
+    //   message.error(error.message);
+    // }
   };
 
   useEffect(() => {
@@ -67,13 +66,13 @@ export default function ProductPage() {
             {/* product images */}
             <div className="flex flex-col gap-2">
               <img
-                src={product.images[selectedImageIndex]}
+                src={product.image[selectedImageIndex]}
                 alt=""
                 className="w-full h-96 object-cover rounded-md border border-solid border-gray-300"
               />
 
               <div className="flex gap-2 p-2 bg-black bg-opacity-20 mt-2 rounded">
-                {product.images.map((image, index) => {
+                {product.image.map((image, index) => {
                   return (
                     <img
                       // onClick={() => setImage(image)}
@@ -107,12 +106,10 @@ export default function ProductPage() {
             <div className="flex-1">
               <div className="flex flex-col gap-1">
                 <h1 className="font-medium text-2xl text-blue-950">
-                  {product.product_name}
+                  {product?.name}
                 </h1>
                 <hr className="h-[1.5px] flex-1 my-1" />
-                <p className="text-gray-500 text-sm">
-                  {product.product_description}
-                </p>
+                <p className="text-gray-500 text-sm">{product?.description}</p>
               </div>
 
               {/* product details */}
@@ -121,55 +118,63 @@ export default function ProductPage() {
               <div className="flex items-center gap-1 mt-5 text-xl text-orange-500">
                 {product?.reviews?.length > 0 ? (
                   <>
-                    <RatingComponent rating={Math.round(product.ratings)} />
+                    <RatingComponent
+                      rating={Math.round(product?.reviews[0]?.rating)}
+                    />
 
                     <p className="text-sm text-gray-400 ml-2">
-                      From {product.reviews.length}{" "}
-                      {product.reviews.length > 1 ? "Reviewers" : "Reviewer"}
+                      From {product?.reviews.length}{" "}
+                      {product?.reviews?.length > 1 ? "Reviewers" : "Reviewer"}
                     </p>
                   </>
                 ) : (
                   <div>No Product Reviews</div>
                 )}
               </div>
-              <p className="flex items-center gap-5 mt-5">
+              <div className="flex items-center gap-5 mt-5">
                 <div className="flex flex-col">
                   <span className="text-sm -mb-1">Asking Price:</span>
                   <div className="flex items-center  text-xl font-medium">
-                    {currency}
-                    {product.asking_price.toLocaleString()}
+                    <TbCurrencyNaira size={20} />
+                    {product.price.toLocaleString()}
                   </div>
                 </div>
 
-                <span className="p-2 rounded bg-green-500 text-white text-xs font-medium">
-                  {product.deliveryincluded
+                <span
+                  className={`p-2 rounded text-white text-xs font-medium ${product?.logistics_included ? "bg-green-600" : "bg-red-600"}`}
+                >
+                  {product?.logistics_included
                     ? "Shipping Included"
                     : "Shipping Not Included"}
                 </span>
-              </p>
+              </div>
 
               <div className="flex flex-col text-gray-700 mt-3 text-sm">
-                <div className="grid grid-cols-2">
-                  <p>Category:</p>
-                  <p className="capitalize">
+                <div className="grid grid-cols-2 md:grid-cols-4">
+                  <p className="text-nowrap col-span-1">Category:</p>
+                  <p className="capitalize col-span-1 md:col-span-3">
                     {product.category.split("_").join(" & ")}
                   </p>
                 </div>
-                <div className="grid grid-cols-2">
-                  <p>Sub Category:</p>
-                  <p className="capitalize">{product.sub_category}</p>
+                <div className="grid grid-cols-2 md:grid-cols-4">
+                  <p className="text-nowrap col-span-1">Sub Category:</p>
+                  <p className="capitalize col-span-1 md:col-span-3">
+                    {product?.subCategory}
+                  </p>
                 </div>
-                <div className="grid grid-cols-2">
-                  <p>Pay on Delivery:</p>
-                  <p className="capitalize">
-                    {product.payondelivery ? "Yes" : "No"}
+                <div className="grid grid-cols-2 md:grid-cols-4">
+                  <p className="text-nowrap col-span-1">Pay on Delivery:</p>
+                  <p
+                    className={`capitalize col-span-1 md:col-span-3 font-extrabold ${product?.payondelivery ? "text-green-600" : "text-red-600"}`}
+                  >
+                    {product?.payondelivery === true ? "Yes" : "No"}
                   </p>
                 </div>
               </div>
 
               {/* seller details */}
               <hr className="my-3" />
-              <div className="text-sm text-gray-500 flex flex-col gap-1">
+              {/* <div className="text-sm text-gray-500 flex flex-col gap-1">
                 <h1 className="text-xl text-blue-950">Seller Details</h1>
                 <div className="grid grid-cols-2">
                   <p>Name of Seller:</p>
@@ -200,12 +205,12 @@ export default function ProductPage() {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* bids placement */}
               <hr className="my-3" />
               <div className="flex flex-col">
-                <div className="flex justify-between items-center mb-5">
+                {/* <div className="flex justify-between items-center mb-5">
                   <h1 className="text-xl text-blue-950">BIDS PLACEMENT</h1>
                   <Button
                     type="default"
@@ -217,10 +222,10 @@ export default function ProductPage() {
                     PLACE BID
                   </Button>
                   {!user ? <Tooltip id="my-tooltip" /> : ""}
-                </div>
+                </div> */}
 
                 {/* show bids on product page */}
-                <div className="flex items-center flex-col lg:flex-row gap-2 w-full">
+                {/* <div className="flex items-center flex-col lg:flex-row gap-2 w-full">
                   {product?.showBidsOnProductsPage &&
                     product?.bids?.map((bid, index) => {
                       return (
@@ -252,16 +257,16 @@ export default function ProductPage() {
                         </div>
                       );
                     })}
-                </div>
+                </div> */}
 
-                {showAddBidsModal && (
+                {/* {showAddBidsModal && (
                   <BidsModal
                     product={product}
                     reloadData={getData}
                     showBidsModal={showAddBidsModal}
                     setShowBidsModal={setShowAddBidsModal}
                   />
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -284,8 +289,8 @@ export default function ProductPage() {
                   return (
                     <ReviewDisplayComponent
                       key={index}
-                      avatar={review.buyer.avatar}
-                      name={review.buyer.fullname}
+                      avatar={review.buyer.image}
+                      name={review.buyer.name}
                       stars={review.rating}
                       comment={review.comment}
                       createdAt={review.createdAt}
@@ -304,11 +309,11 @@ export default function ProductPage() {
           </div>
 
           {/* display related products */}
-          <RelatedProducts
+          {/* <RelatedProducts
             category={product.category}
             seller={product.seller}
             currentProduct={product._id}
-          />
+          /> */}
         </div>
       ) : (
         <div className="flex justify-center text-center min-h-screen mt-8">

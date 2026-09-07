@@ -58,20 +58,35 @@ export const products = [
   {
     _id: "1",
     name: "Fashionable Gold Plated Belt",
+    slug: "fashionable-gold-plated-belt",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 10500,
     image: [belt_1, women2, women3, women4],
     category: "accessories",
     subCategory: "men_wears",
+    payondelivery: true,
     sizes: ["S", "M", "L"],
     logistics_included: true,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
+
+    reviews: [
+      {
+        buyer: {
+          name: "AMENE Terhemen",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDYO06lppcfPSL-RovtTD_Sqv2I8bK_YYgnWJHPtoVF84xw5hqUKFsvSz&s=10",
+        },
+        rating: 4,
+        comment: "This is a great product. I love it!",
+      },
+    ],
   },
   {
     _id: "2",
     name: "Diamond Bracelet",
+    slug: "diamond-bracelet",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 15000,
@@ -81,11 +96,12 @@ export const products = [
     sizes: ["S", "M", "L"],
     logistics_included: false,
     bestSeller: false,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "3",
     name: "Diamond Necklace 1",
+    slug: "diamond-necklace-1",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 1050,
@@ -95,11 +111,12 @@ export const products = [
     sizes: ["M", "L", "XL"],
     logistics_included: false,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "4",
     name: "Diamond Necklace 2",
+    slug: "diamond-necklace-2",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 1500,
@@ -109,11 +126,12 @@ export const products = [
     sizes: ["M", "L", "XL"],
     logistics_included: false,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "5",
     name: "Diamond Necklace 3",
+    slug: "diamond-necklace-3",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 85000,
@@ -123,11 +141,12 @@ export const products = [
     sizes: ["S", "M"],
     logistics_included: true,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "6",
     name: "Diamond Ring 1",
+    slug: "diamond-ring-1",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 9000,
@@ -137,11 +156,12 @@ export const products = [
     sizes: ["S", "M"],
     logistics_included: false,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "7",
     name: "Diamond Ring 2",
+    slug: "diamond-ring-2",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 9000,
@@ -151,11 +171,12 @@ export const products = [
     sizes: ["S", "M"],
     logistics_included: true,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "8",
     name: "Now White Perfume 150mL",
+    slug: "now-white-perfume-150ml",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 9000,
@@ -165,11 +186,12 @@ export const products = [
     sizes: ["S", "M"],
     logistics_included: true,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "9",
     name: "Supremacy Avnan Incense Perfume 200mL",
+    slug: "supremacy-avnan-incense-perfume-200ml",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 9000,
@@ -179,11 +201,12 @@ export const products = [
     sizes: ["S", "M"],
     logistics_included: false,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "10",
     name: "Watch One",
+    slug: "watch-one",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 9000,
@@ -193,11 +216,12 @@ export const products = [
     sizes: ["S", "M"],
     logistics_included: false,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "11",
     name: "Watch Two",
+    slug: "watch-two",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 9000,
@@ -207,11 +231,12 @@ export const products = [
     sizes: ["S", "M"],
     logistics_included: false,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
   {
     _id: "12",
     name: "Watch Three",
+    slug: "watch-three",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     price: 9000,
@@ -221,6 +246,6 @@ export const products = [
     sizes: ["S", "M"],
     logistics_included: false,
     bestSeller: true,
-    date: 1716634345448,
+    createdAt: "2026-09-06T08:05:19.320+00:00",
   },
 ];

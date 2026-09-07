@@ -44,6 +44,7 @@ export default function LatestCollection() {
           <ProductItem
             key={index}
             id={product._id}
+            slug={product.slug}
             image={product.image[0]}
             name={product.name}
             category={product.category.split("_").join(" & ")}

@@ -96,6 +96,7 @@ export default function CollectionsPage() {
               <ProductItem
                 key={index}
                 id={product?._id}
+                slug={product.slug}
                 name={product?.name}
                 category={product?.category.split("_").join(" & ")}
                 description={product?.description}

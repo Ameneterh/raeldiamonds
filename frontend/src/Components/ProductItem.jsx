@@ -5,6 +5,7 @@ import Divider from "./Divider";
 
 export default function ProductItem({
   id,
+  slug,
   image,
   name,
   category,
@@ -17,7 +18,7 @@ export default function ProductItem({
 
   return (
     <Link
-      to={`/product/${id}`}
+      to={`/product/${slug}`}
       className="text-gray-700 cursor-pointer rounded-md overflow-hidden bg-red-300 w-full min-h-72 flex flex-col justify-end hover:scale-110 transition-all duration-300 hover:shadow-lg"
       style={{
         backgroundImage: `url(${image})`,
