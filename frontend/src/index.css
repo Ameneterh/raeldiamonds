@@ -11,6 +11,21 @@
   font-family: "Outfit", serif !important;
 }
 
+/* clean styled component */
+@layer components {
+  .card {
+    @apply bg-black text-white rounded-lg py-4 px-5 text-center flex items-center justify-center hover:bg-white hover:text-black transition-all cursor-pointer;
+  }
+
+  .cta_button_card {
+    @apply bg-orange-700 text-white hover:bg-opacity-55 cursor-pointer rounded-lg py-2 px-4 w-40 flex items-center justify-center;
+  }
+
+  .normal_button {
+    @apply mt-5 w-full py-3 px-4 bg-gradient-to-r from-yellow-700 to-yellow-950 rounded-lg hover:from-yellow-950 hover:to-yellow-700 focus:outline-none focus:ring-0  focus:ring-offset-0 transition duration-500 cursor-pointer flex items-center justify-center outline-none border-0 ring-0 text-white hover:text-yellow-200;
+  }
+}
+
 .prata-regular {
   font-family: "Prata", serif !important;
   font-weight: 400;
@@ -29,8 +44,8 @@ input,
 select {
   height: 40px !important;
   width: 100% !important;
-  /* border: 1px solid #b9b9b9 !important; */
-  /* border-radius: 3px !important; */
+  border: 1px solid #b9b9b9 !important;
+  border-radius: 6px !important;
 }
 
 input:focus,
@@ -44,6 +59,7 @@ textarea:focus {
 button {
   height: 40px !important;
   box-shadow: none !important;
+  cursor: pointer !important;
 }
 
 table {

@@ -24,7 +24,7 @@ export default function SubscriptionComponent() {
             placeholder="Enter your email"
             className="flex-1 w-full text-black font-extralight p-1 outline-none border-none ring-0 focus:outline-none focus:border-none px-1 md:px-4 rounded-full"
           />
-          <button className="text-sm bg-red-800 text-white font-semibold hover:opacity-85 px-4 rounded-full my-0">
+          <button className="text-sm bg-red-800 text-white font-semibold hover:opacity-85 px-4 rounded-full my-0 hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer">
             SUBSCRIBE
           </button>
         </div>

@@ -28,10 +28,10 @@ export default function LatestCollection() {
   }, []);
 
   return (
-    <div className="my-10">
+    <div className="my-10 max-w-7xl mx-auto">
       <div className="text-center py-8 text-3xl">
         <TitleText text1={"latest"} text2={"collection"} />
-        <p className="w-3/4 mx-auto text-xs sm:text-sm md:text-base text-gray-600">
+        <p className="w-3/4 mx-auto text-xs sm:text-sm md:text-base text-gray-600 max-w-xl">
           Discover our latest collection, where cutting-edge design meets
           timeless elegance. From bold statement pieces to subtle essentials,
           each item is crafted with quality and style in mind.

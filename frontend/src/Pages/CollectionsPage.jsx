@@ -51,7 +51,7 @@ export default function CollectionsPage() {
 
   return (
     <MainLayout>
-      <div className="flex gap-5 mt-8 sm:mt-0 min-h-svh">
+      <div className="flex gap-5 mt-8 min-h-svh max-w-7xl mx-auto p-2 md:p-0 my-8">
         {showFilters && (
           <ProductFiltersComponent
             showFilters={showFilters}
@@ -89,7 +89,7 @@ export default function CollectionsPage() {
             className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 ${
               showFilters
                 ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-                : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+                : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
             }`}
           >
             {products?.map((product, index) => (

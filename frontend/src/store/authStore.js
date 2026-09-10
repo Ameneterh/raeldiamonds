@@ -3,8 +3,8 @@ import axios from "axios";
 
 const API_URL =
   import.meta.env.MODE === "development"
-    ? "http://localhost:5000/server/auth"
-    : "/server/auth";
+    ? "http://localhost:5000/backend/v1/auth"
+    : "/backend/v1/auth";
 
 axios.defaults.withCredentials = true;
 
@@ -19,22 +19,16 @@ export const useAuthStore = create((set) => ({
   message: null,
   justLoggedOut: false,
 
-  //   add new new user account
-  addUser: async ({
-    fullname,
-    username,
-    phoneNumber,
-    password,
-    role,
-    rank,
-  }) => {
+  // new new user account creation
+  addUser: async ({ fullname, email, phone, password, address, role }) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${API_URL}/add-user`, {
         fullname,
-        username,
-        phoneNumber,
+        email,
+        phone,
         password,
+        address,
         role,
       });
       set({
@@ -46,42 +40,6 @@ export const useAuthStore = create((set) => ({
       set({
         error:
           error.response?.data?.message || error.message || "Error signing up",
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
-
-  //   admin add new new user account
-  addNewUser: async ({
-    fullname,
-    username,
-    phoneNumber,
-    role,
-    rank,
-    createdBy,
-  }) => {
-    set({ isLoading: true, error: null });
-    try {
-      const response = await axios.post(`${API_URL}/add-new-user`, {
-        fullname,
-        username,
-        phoneNumber,
-        role,
-        rank,
-        createdBy,
-      });
-      set({
-        // user: response.data.user,
-        // isAuthenticated: true,
-        isLoading: false,
-      });
-    } catch (error) {
-      set({
-        error:
-          error.response?.data?.message ||
-          error.message ||
-          "Error adding new user",
         isLoading: false,
       });
       throw error;

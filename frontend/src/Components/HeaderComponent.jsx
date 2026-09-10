@@ -73,7 +73,7 @@ export default function HeaderComponent() {
   };
 
   return (
-    <div className="flex items-center justify-between py-5 px-2 font-medium sticky top-0 z-40 text-[12px] bg-white border-t-0 border-l-0 border-r-0 border-b-[1.5px] border-solid border-b-gray-300">
+    <div className="flex items-center justify-between py-5 px-2 md:px-6 font-medium sticky top-0 z-40 text-[12px] bg-white border-t-0 border-l-0 border-r-0 border-b-[1.5px] border-solid border-b-gray-300">
       <Link to="/" className="flex items-center gap-1">
         <img src={assets.logo} className="w-8 sm:w-16 rounded-full" />
         <div className="hidden md:flex flex-col md:text-5xl font-extrabold text-black leading-3">
@@ -117,7 +117,7 @@ export default function HeaderComponent() {
       </ul>
 
       {/* user login, search, and cart */}
-      <div className="flex items-center gap-3 sm:gap-6">
+      <div className="flex items-center gap-3 sm:gap-6 pr-2 md:pr-6">
         {user ? (
           <div className="flex items-center gap-1">
             <div className="group relative">

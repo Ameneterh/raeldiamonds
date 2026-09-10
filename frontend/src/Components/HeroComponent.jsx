@@ -5,11 +5,13 @@ import { Button } from "antd";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { products } from "../assets/assets";
+import { categories } from "../assets/assets";
 
 export default function HeroComponent() {
   const date = new Date();
   const navigate = useNavigate();
+
+  console.log(categories);
 
   return (
     <div className="w-full min-h-[80svh] flex items-center justify-between flex-col pt-10 sm:pt-0 sm:flex-row relative">
@@ -72,12 +74,12 @@ export default function HeroComponent() {
           }}
           className="h-80 w-56 md:w-full rounded-lg"
         >
-          {products?.map((product) => (
+          {categories?.map((category) => (
             <SwiperSlide
-              key={product.id}
+              key={category.id}
               className="flex items-center justify-center overflow-hidden rounded-lg"
               style={{
-                backgroundImage: `url(${product.image[0]})`,
+                backgroundImage: `url(${category.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -86,8 +88,8 @@ export default function HeroComponent() {
               {image.id}
             </div> */}
               <img
-                src={product.image[0]}
-                alt={product.image.id}
+                src={category.image}
+                alt={category.name}
                 className="h-80 object-cover rounded-lg"
               />
             </SwiperSlide>

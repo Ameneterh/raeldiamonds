@@ -61,7 +61,7 @@ export default function ProductPage() {
   return (
     <MainLayout>
       {product ? (
-        <div>
+        <div className="max-w-7xl mx-auto p-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
             {/* product images */}
             <div className="flex flex-col gap-2">
@@ -148,6 +148,26 @@ export default function ProductPage() {
                     : "Shipping Not Included"}
                 </span>
               </div>
+
+              {product?.freebies?.length > 0 ? (
+                <div className="flex flex-col bg-green-800 text-white py-1 px-3 rounded mt-2 w-fit">
+                  <p className="text-sm font-bold">Free Package:</p>
+                  <p className="text-sm">
+                    {product?.freebies?.length} gifts included
+                  </p>
+                  <p className="text-sm">
+                    Total Value: ₦
+                    {product?.freebies
+                      ?.reduce(
+                        (acc, freebie) => acc + parseInt(freebie.value),
+                        0,
+                      )
+                      .toLocaleString()}
+                  </p>
+                </div>
+              ) : (
+                <></>
+              )}
 
               <div className="flex flex-col text-gray-700 mt-3 text-sm">
                 <div className="grid grid-cols-2 md:grid-cols-4">

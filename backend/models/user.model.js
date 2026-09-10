@@ -20,20 +20,25 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    address: {
+      type: String,
+      sparse: true,
+    },
     role: {
       type: String,
-      default: "user",
+      enum: ["client", "staff"],
+      default: "client",
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
     status: {
       type: String,
       enum: ["active", "pending", "blocked", "suspended", "deleted"],
       default: "active",
     },
-    // premium: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    avatar: {
+    image: {
       type: String,
       default:
         "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001882.png",

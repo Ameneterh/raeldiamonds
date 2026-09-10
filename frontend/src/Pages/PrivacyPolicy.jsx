@@ -3,6 +3,7 @@ import MainLayout from "../layout/MainLayout";
 import TitleText from "../Components/TitleText";
 import { Link } from "react-router-dom";
 import { MdMarkEmailUnread, MdPhoneInTalk, MdWhatsapp } from "react-icons/md";
+import { company_info } from "../assets/company_info";
 
 export default function PrivacyPolicy() {
   return (
@@ -13,41 +14,38 @@ export default function PrivacyPolicy() {
         </div>
         <div className="flex items-center flex-col sm:flex-row justify-between">
           <h1 className="text-[14px]">
-            Privacy Policy for <b>myeSHOP</b>
+            Privacy Policy for <b>Rael Diamonds</b>
           </h1>
-          <span>Effective Date: January 5, 2025</span>
+          <span>Effective Date: September 1, 2026</span>
         </div>
         <hr className="h-[1.5px] bg-gray-400 my-2" />
         {/* privacy policy content */}
         <p>
-          At myeShop, we are committed to protecting your privacy. This Privacy
-          Policy explains how we collect, use, disclose, and protect your
-          personal information when you visit and make purchases from vendors
-          through our online store. By using our website and services, you agree
-          to the practices described in this policy.
+          At Rael Diamonds, we are committed to protecting your privacy. This
+          Privacy Policy explains how we collect, use, disclose, and protect
+          your personal information when you visit and make purchases from our
+          online store. By using our website and services, you agree to the
+          practices described in this policy.
         </p>
         <h1 className="text-[14px]">1. Information We Collect</h1>
         <p>
           While using our site sorely for shopping do not require registration,
-          if you do wish to become a vendor through myeSHOP platform, you will
-          be required to register. We collect various types of personal and
-          non-personal information from registrants and site users to provide a
-          seamless experience:
+          if you do wish to rate our products, you will be required to register.
+          We collect various types of personal and non-personal information from
+          registrants and site users to provide a seamless experience:
         </p>
         <p>
           <b>- Personal Identification Information:</b> This includes your name,
-          email address, phone number; Vendors may require your payment details
-          including shipping address.
+          email address, phone number, including shipping address.
         </p>
-        <p>
+        {/* <p>
           <b>- Non-Personal Identification Information:</b> This includes data
           such as your IP address, browser type, device information, and
           browsing activity on our website.
-        </p>
+        </p> */}
         <p>
-          <b>- Cookies and Tracking Technologies:</b> We use cookies, web
-          beacons, and similar technologies to track your preferences and
-          improve your experience.
+          <b>- Cookies:</b> We use cookies, web beacons, and similar
+          technologies to track your preferences and improve your experience.
         </p>
         <h1 className="text-[14px]">2. How We Use Your Information</h1>
         <p>We use the information we collect for the following purposes:</p>
@@ -126,19 +124,14 @@ export default function PrivacyPolicy() {
           are a parent or guardian and believe we have inadvertently collected
           information from a child, please contact us to have the data removed.
         </p>
-        <h1 className="text-[14px]">7. Third-Party Links</h1>
-        <p>
-          Our website may contain links to third-party websites. We are not
-          responsible for the privacy practices of these external sites. We
-          encourage you to review their privacy policies before providing any
-          personal information.
-        </p>
+
         <h1 className="text-[14px]">8. International Data Transfers</h1>
         <p>
           If you are accessing our website from outside Nigeria, please note
           that your information may be transferred to, stored, and processed in
           a country that may have different data protection laws than your own.
         </p>
+
         <h1 className="text-[14px]">9. Changes to This Privacy Policy</h1>
         <p>
           We reserve the right to update this Privacy Policy at any time. Any
@@ -146,29 +139,33 @@ export default function PrivacyPolicy() {
           We encourage you to review this policy periodically to stay informed
           about how we are protecting your information.
         </p>
+
         <h1 className="text-[14px]">10. Contact Us</h1>
         <p>
           If you have any questions or concerns about this Privacy Policy or our
           data practices, please contact us:
           <br />
           <Link
-            to="mailto:ameneterh@gmail.com"
+            to={`mailto:${company_info.email}`}
             className="flex items-center gap-1"
           >
             <MdMarkEmailUnread />
-            ameneterh@gmail.com
+            {company_info.email}
           </Link>
           <Link
-            to="https://wa.me/2348154230654"
+            to={`https://wa.me/${company_info.whatsapp_number}`}
             target="_blank"
             className="flex items-center gap-1"
           >
             <MdWhatsapp />
-            08154230654
+            {company_info.whatsapp_number}
           </Link>
-          <Link to="tel:+2348154230654" className="flex items-center gap-1">
+          <Link
+            to={`tel:${company_info.call_number}`}
+            className="flex items-center gap-1"
+          >
             <MdPhoneInTalk />
-            08154230654
+            {company_info.call_number}
           </Link>
         </p>
       </div>

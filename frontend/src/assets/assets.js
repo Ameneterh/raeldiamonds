@@ -39,6 +39,45 @@ import watch_1 from "./watch_1.jpeg";
 import watch_2 from "./watch_2.jpeg";
 import watch_3 from "./watch_3.jpeg";
 
+export const categories = [
+  {
+    id: 1,
+    name: "accessories",
+    slug: "accessories",
+    image: belt_1,
+  },
+  {
+    id: 2,
+    name: "bracelets",
+    slug: "bracelets",
+    image: diamond_bracelets_1,
+  },
+  {
+    id: 3,
+    name: "necklaces",
+    slug: "necklaces",
+    image: diamond_necklace_1,
+  },
+  {
+    id: 4,
+    name: "rings",
+    slug: "rings",
+    image: diamond_rings_1,
+  },
+  {
+    id: 5,
+    name: "perfumes",
+    slug: "perfumes",
+    image: perfume_2,
+  },
+  {
+    id: 6,
+    name: "watches",
+    slug: "watches",
+    image: watch_2,
+  },
+];
+
 export const assets = {
   nav_img,
   hero_img,
@@ -84,6 +123,8 @@ export const products = [
         comment: "This is a great product. I love it!",
       },
     ],
+
+    freebies: [],
   },
   {
     _id: "2",
@@ -91,14 +132,36 @@ export const products = [
     slug: "diamond-bracelet",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-    price: 15000,
+    price: 105000,
     image: [diamond_bracelets_1, women2, women3, women4],
     category: "bracelets",
     subCategory: "accessories",
     sizes: ["S", "M", "L"],
-    logistics_included: false,
-    bestSeller: false,
+    logistics_included: true,
+    bestSeller: true,
     createdAt: "2026-09-06T08:05:19.320+00:00",
+    reviews: [
+      {
+        buyer: {
+          name: "AMENE Terhemen",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDYO06lppcfPSL-RovtTD_Sqv2I8bK_YYgnWJHPtoVF84xw5hqUKFsvSz&s=10",
+        },
+        rating: 4,
+        comment:
+          "I love this diamond bracelet, it is a great product. I love it!",
+      },
+    ],
+    freebies: [
+      {
+        name: "Diamond Tester",
+        value: "28000",
+      },
+      {
+        name: "Cosmetic Bag",
+        value: "8000",
+      },
+    ],
   },
   {
     _id: "3",
