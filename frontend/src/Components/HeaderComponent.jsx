@@ -10,24 +10,12 @@ import { useAuthStore } from "../store/authStore.js";
 
 export default function HeaderComponent() {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuthStore();
+  const { user, logout, isLoading } = useAuthStore();
   const [visible, setVisible] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [showNofications, setShowNotifications] = useState(false);
 
   const [openCart, setOpenCart] = useState(false);
-
-  const validateToken = async () => {
-    // try {
-    //   const response = await GetCurrentUser();
-    //   if (response.success) {
-    //   } else {
-    //     message.error(response.message);
-    //   }
-    // } catch (error) {
-    //   message.error(error.message);
-    // }
-  };
 
   const getNotifications = async () => {
     // try {
@@ -61,11 +49,6 @@ export default function HeaderComponent() {
   //     getNotifications();
   //   }
   // }, []);
-
-  const handleLogout = async () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  };
 
   return (
     <div className="flex items-center justify-between py-5 px-2 md:px-6 font-medium sticky top-0 z-40 text-[12px] bg-white border-t-0 border-l-0 border-r-0 border-b-[1.5px] border-solid border-b-gray-300">
@@ -130,10 +113,10 @@ export default function HeaderComponent() {
                 <div className="flex flex-col gap-2 w-full p-1 bg-gray-700 text-white rounded">
                   <p
                     onClick={() => {
-                      if (user?.role === "user") {
-                        navigate("/seller-profile");
+                      if (user?.role === "client") {
+                        navigate("/user-dashboard?tab=profile");
                       } else {
-                        navigate("/admin-dashboard");
+                        navigate("/user-dashboard?tab=dash");
                       }
                     }}
                     className="cursor-pointer hover:text-black p-1 hover:bg-slate-200"
@@ -141,7 +124,7 @@ export default function HeaderComponent() {
                     Profile
                   </p>
                   <p
-                    onClick={() => handleLogout()}
+                    onClick={() => logout()}
                     className="cursor-pointer hover:text-black p-1 hover:bg-slate-200"
                   >
                     Logout
