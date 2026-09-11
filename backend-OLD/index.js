@@ -1,9 +1,4 @@
 import authRouter from "./routes/auth.routes.js";
-import contactRouter from "./routes/contact.routes.js ";
-import subscriptionRouter from "./routes/subscription.routes.js";
-import postRouter from "./routes/post.routes.js";
-import categoryRouter from "./routes/category.routes.js";
-import updateRouter from "./routes/update.routes.js";
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -30,23 +25,24 @@ mongoose
   .catch((error) => console.log(error));
 
 app.use("/backend/v1/auth", authRouter);
-app.use("/backend/v1/contact", contactRouter);
-app.use("/backend/v1/subscription", subscriptionRouter);
-app.use("/backend/v1/post", postRouter);
-app.use("/backend/v1/category", categoryRouter);
-app.use("/backend/v1/update", updateRouter);
-app.use(
-  "/backend/v1/exports",
-  express.static(path.join(process.cwd(), "backend/v1/exports")),
-);
+// app.use("/backend/products", productRouter);
+// app.use("/backend/bids", bidsRouter);
+// app.use("/backend/notifications", notificationsRouter);
+// app.use("/backend/reviews", reviewsRouter);
 
 // render deployment
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
   });
 }
+
+// app.use(express.static(path.join(__dirname, "/frontend/dist")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+// });
 
 app.listen(PORT, () =>
   console.log(`Node/Express Server is running on Port ${PORT}`),

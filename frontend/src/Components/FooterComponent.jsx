@@ -80,6 +80,21 @@ export default function FooterComponent() {
               {company_info.call_number}
             </Link>
           </ul>
+
+          {/* social media handles */}
+          <div className="flex items-center gap-1 mt-2">
+            {company_info.socials.map((social, index) => (
+              <Link
+                to={`${social.url}${social.name}`}
+                target="_blank"
+                key={index}
+              >
+                <social.icon
+                  className={`text-lg hover:scale-125 transition-all duration-300 text-${social.color}`}
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
       <div>

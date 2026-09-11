@@ -11,8 +11,6 @@ export default function HeroComponent() {
   const date = new Date();
   const navigate = useNavigate();
 
-  console.log(categories);
-
   return (
     <div className="w-full min-h-[80svh] flex items-center justify-between flex-col pt-10 sm:pt-0 sm:flex-row relative">
       {/* hero left side */}

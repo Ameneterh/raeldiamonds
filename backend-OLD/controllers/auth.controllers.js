@@ -52,6 +52,109 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// login
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid User Credentials!" });
+    }
+
+    if (user.status !== "active") {
+      return res.status(400).json({
+        success: false,
+        message: "User not activated or blocked; contact Site Admin",
+      });
+    }
+
+    const isValidPassword = bcrypt.compareSync(password, user.password);
+    if (!isValidPassword) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid User Credentials!" });
+    }
+
+    generateTokenAndSetCookie(res, user._id);
+
+    user.lastLogin = new Date();
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "User logged in successfully",
+      user: { ...user._doc, password: undefined },
+    });
+  } catch (error) {
+    console.log("Error in login", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// get all users
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({
+      role: { $in: ["client", "staff"] },
+    });
+
+    const userCounts = await User.aggregate([
+      {
+        $match: {
+          role: {
+            $in: ["client", "staff"],
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$role",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const formattedCounts = userCounts.reduce((acc, item) => {
+      acc[item._id] = item.count;
+      return acc;
+    }, {});
+
+    const totalUsers = await User.countDocuments({
+      role: { $in: ["client", "staff"] },
+    });
+
+    const now = new Date();
+
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate(),
+    );
+
+    const lastMonthUsers = await User.countDocuments({
+      role: { $in: ["client", "staff"] },
+      createdAt: { $gte: oneMonthAgo },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Users fetched successfully",
+      users,
+      userCounts: formattedCounts,
+      totalUsers,
+      lastMonthUsers,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 // update user
 export const updateUser = async (req, res) => {
   const { name, email, phoneNumber, password, affiliation } = req.body;
@@ -148,48 +251,6 @@ export const verifyEmail = async (req, res) => {
   }
 };
 
-// login
-export const login = async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await User.findOne({ email }).populate("affiliation");
-
-    if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid User Credentials!" });
-    }
-
-    if (user.status !== "active") {
-      return res.status(400).json({
-        success: false,
-        message: "User not activated or blocked; contact Site Admin",
-      });
-    }
-
-    const isValidPassword = bcrypt.compareSync(password, user.password);
-    if (!isValidPassword) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid User Credentials!" });
-    }
-
-    generateTokenAndSetCookie(res, user._id);
-
-    user.lastLogin = new Date();
-    await user.save();
-
-    res.status(200).json({
-      success: true,
-      message: "User logged in successfully",
-      user: { ...user._doc, password: undefined },
-    });
-  } catch (error) {
-    console.log("Error in login", error);
-    res.status(400).json({ success: false, message: error.message });
-  }
-};
-
 // logout
 export const logout = async (req, res) => {
   res.clearCookie("token");
@@ -277,9 +338,7 @@ export const resetPassword = async (req, res) => {
 // check authentication
 export const CheckAuth = async (req, res) => {
   try {
-    const user = await User.findById(req.userId)
-      .populate("affiliation")
-      .select("-password");
+    const user = await User.findById(req.userId).select("-password");
 
     if (!user) {
       return res
@@ -290,6 +349,6 @@ export const CheckAuth = async (req, res) => {
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.log("Error in checkAuth", error);
-    res.status(400).json({ sucess: false, message: error.message });
+    res.status(400).json({ success: false, message: error.message });
   }
 };

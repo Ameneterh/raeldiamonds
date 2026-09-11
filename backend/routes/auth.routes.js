@@ -1,30 +1,36 @@
 import express from "express";
-import User from "../models/user.model.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import {
+  addUser,
   login,
   logout,
-  registerUser,
-  verifyEmail,
-  forgotPassword,
   resetPassword,
   CheckAuth,
-} from "../controllers/auth.controllers.js";
+  getUsers,
+  updateUser,
+  updatePassword,
+  addAbout,
+  editAbout,
+  getAboutContent,
+} from "../controllers/auth.controller.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 
 const router = express.Router();
 
 router.get("/check-auth", verifyToken, CheckAuth);
-
-router.post("/add-user", registerUser);
-router.post("/verify-email", verifyEmail);
-
+router.post("/add-user", addUser);
 router.post("/user-login", login);
+
+router.put("/update-user/:userId", verifyToken, updateUser);
+router.put("/update-password/:userId", verifyToken, updatePassword);
+
 router.post("/logout", logout);
 
-router.post("/forgot-password", forgotPassword);
+router.post("/add-about", addAbout);
+router.get("/get-about", getAboutContent);
+router.put("/edit-about/:pageId", verifyToken, editAbout);
 
-router.post("/reset-password/:token", resetPassword);
+router.get("/get-users", getUsers);
+
+router.post("/reset-password", resetPassword);
 
 export default router;

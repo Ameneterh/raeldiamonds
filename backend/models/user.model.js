@@ -2,46 +2,64 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    role: {
+      type: String,
+      enum: ["architect", "contributor", "editor", "staff", "reader"],
+      required: true,
+    },
+
     fullname: {
       type: String,
       required: true,
+      trim: true,
     },
+
     email: {
       type: String,
       required: true,
       trim: true,
+      unique: true,
+      index: true,
     },
+
     phone: {
       type: String,
-      required: true,
+      unique: true,
       trim: true,
     },
+
     password: {
       type: String,
       required: true,
+      trim: true,
+      minlength: 8,
     },
-    address: {
+
+    avatar: {
       type: String,
-      sparse: true,
+      default:
+        "https://img.freepik.com/premium-vector/black-white-handshake-symbol-with-starburst-background_1294240-23568.jpg",
     },
-    role: {
+
+    status: {
       type: String,
-      enum: ["client", "staff"],
-      default: "client",
+      enum: ["pending", "active", "banned", "suspended"],
+      default: "pending",
     },
-    isAdmin: {
+
+    lastLogin: {
+      type: Date,
+      default: Date.now,
+    },
+
+    isDeleted: {
       type: Boolean,
       default: false,
     },
-    status: {
-      type: String,
-      enum: ["active", "pending", "blocked", "suspended", "deleted"],
-      default: "active",
-    },
-    image: {
-      type: String,
-      default:
-        "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001882.png",
+
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true },

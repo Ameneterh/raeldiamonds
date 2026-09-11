@@ -4,18 +4,13 @@ import { FaShoppingCart } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { assets } from "../assets/assets.js";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { ShopContext } from "../context/shopContext.jsx";
-import { GetCurrentUser } from "../apiCalls/users.js";
 import { Avatar, Badge, Button, message } from "antd";
 import NotificationsComponent from "./NotificationsComponent.jsx";
-import {
-  GetAllNotifications,
-  ReadAllNotifications,
-} from "../apiCalls/notifications.js";
+import { useAuthStore } from "../store/authStore.js";
 
 export default function HeaderComponent() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const { user, isLoading } = useAuthStore();
   const [visible, setVisible] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [showNofications, setShowNotifications] = useState(false);
@@ -60,12 +55,12 @@ export default function HeaderComponent() {
     // }
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      validateToken();
-      getNotifications();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("token")) {
+  //     validateToken();
+  //     getNotifications();
+  //   }
+  // }, []);
 
   const handleLogout = async () => {
     localStorage.removeItem("token");

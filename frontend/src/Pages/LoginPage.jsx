@@ -6,7 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import MainLayout from "../layout/MainLayout";
 import bg_image from "../assets/bg_image.jpg";
-import Divider from "../components/Divider";
+import Divider from "../Components/Divider";
+import { toast } from "react-hot-toast";
 
 const rules = [{ required: true, message: "Field Value Required" }];
 
@@ -24,7 +25,7 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      navigate("/");
+      navigate("/user-dashboard?tab=dash");
       toast.success("Login successful");
     } catch (error) {
       console.log(error);

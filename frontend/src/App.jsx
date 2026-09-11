@@ -6,11 +6,7 @@ import ContactPage from "./Pages/ContactPage.jsx";
 import ProductPage from "./Pages/ProductPage.jsx";
 import LoginPage from "./Pages/LoginPage.jsx";
 import RegistrationPage from "./Pages/RegistrationPage.jsx";
-import ProtectedPage from "./Components/ProtectedPage.jsx";
 import Spinner from "./Components/Spinner.jsx";
-import SellerProfilePage from "./Pages/SellerProfilePage.jsx";
-import AdminDashboard from "./Pages/adminDashboard/AdminDashboard.jsx";
-import { useSelector } from "react-redux";
 import PrivacyPolicy from "./Pages/PrivacyPolicy.jsx";
 import TermsOfUse from "./Pages/TermsOfUse.jsx";
 import ScrollToTop from "./Components/ScrollToTop.jsx";
@@ -23,34 +19,26 @@ import { useAuthStore } from "./store/authStore.js";
 import { toast } from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 
-// protected routes
-const AdminOnlyRoute = ({ children }) => {
-  const { isAuthenticated, user } = useAuthStore();
+import { useEffect, useRef } from "react";
 
-  if (!isAuthenticated) {
-    // toast.error("You need to log in to access this page");
-    return <Navigate to="/user-login" replace />;
-  }
-
-  if (!user.isAdmin) {
-    toast.error("You aren't authorized to view this page!");
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-};
+import { useLocation } from "react-router-dom";
 
 // protected routes
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user, justLoggedOut, setJustLoggedOut } =
+    useAuthStore();
+
+  useEffect(() => {
+    if (!isAuthenticated && !justLoggedOut) {
+      toast.error("You need to log in to access this page");
+    }
+  }, [isAuthenticated, justLoggedOut, setJustLoggedOut]);
 
   if (!isAuthenticated) {
-    // toast.error("You need to log in to access this page");
     return <Navigate to="/user-login" replace />;
   }
 
-  if (user.status !== "active") {
-    toast.error("Your account is not active, contact HR!");
+  if (user?.status !== "active") {
     return <Navigate to="/verify-handler" replace />;
   }
 
@@ -61,31 +49,48 @@ const ProtectedRoute = ({ children }) => {
 const RedirectAuthenticatedUser = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
 
-  if (isAuthenticated && user.status === "active") {
-    return <Navigate to="/" replace />;
+  if (isAuthenticated && user?.status === "active") {
+    return <Navigate to="/user-dashboard?tab=dash" replace />;
   }
+
   return children;
 };
 
 function App() {
-  // const { loading } = useSelector((state) => state.loaders);
+  const contentRef = useRef();
+
+  const { isCheckingAuth, checkAuth, isAuthenticated, user } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if (isCheckingAuth) return <Spinner />;
 
   return (
-    <div className="">
-      {/* {loading && <Spinner />} */}
-      <ScrollToTop />
+    <div className="min-h-screen bg-gradient-to-tr bg-white flex relative overflow-hidden">
+      {/* routes */}
       <Routes>
-        {/* unprotected routes */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-use" element={<TermsOfUse />} />
-        <Route path="/collections" element={<CollectionsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/product/:slug" element={<ProductPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-
+        <Route
+          path="/"
+          element={
+            isAuthenticated && user?.status === "active" ? (
+              <Navigate to="/user-dashboard?tab=dash" replace />
+            ) : (
+              <HomePage />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            isAuthenticated && user?.status === "active" ? (
+              <Navigate to="/user-dashboard?tab=dash" replace />
+            ) : (
+              <LoginPage />
+            )
+          }
+        />
         {/* protected routes */}
         <Route
           path="/user-dashboard"
@@ -95,19 +100,9 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         {/* private routes for only authenticated users */}
         <Route
-          path="/forgot-password"
-          element={
-            <RedirectAuthenticatedUser>
-              <ForgotPasswordPage />
-            </RedirectAuthenticatedUser>
-          }
-        />
-        <Route
           path="/reset-password"
-          // path="/reset-password/:token"
           element={
             <RedirectAuthenticatedUser>
               <PasswordResetPage />
@@ -115,21 +110,24 @@ function App() {
           }
         />
         <Route
-          path="/register"
-          element={
-            <RedirectAuthenticatedUser>
-              <RegistrationPage />
-            </RedirectAuthenticatedUser>
-          }
-        />
-        <Route
-          path="/login"
+          path="/user-login"
           element={
             <RedirectAuthenticatedUser>
               <LoginPage />
             </RedirectAuthenticatedUser>
           }
         />
+        {/* unprotected routes */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/collections" element={<CollectionsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/product/:slug" element={<ProductPage />} />
+        <Route path="/register" element={<RegistrationPage />} />
+        <Route path="/terms-of-use" element={<TermsOfUse />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
       <Toaster />
