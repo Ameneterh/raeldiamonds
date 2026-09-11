@@ -11,13 +11,6 @@ import { MdAddIcCall, MdCall } from "react-icons/md";
 import { AiOutlineProduct } from "react-icons/ai";
 import MainLayout from "../layout/MainLayout";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import RelatedProducts from "../Components/RelatedProducts";
-import {
-  GetAllBids,
-  GetAllReviews,
-  GetProductById,
-  GetProducts,
-} from "../apiCalls/products";
 import moment from "moment";
 import { Button, message } from "antd";
 import BidsModal from "./sellerProfile/BidsModal";

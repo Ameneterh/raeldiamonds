@@ -13,7 +13,7 @@ import {
   EyeOff,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { Input, PasswordInput } from "../components/Input";
+import { Input, PasswordInput } from "../Components/Input";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
 import TitleText from "../Components/TitleText";
