@@ -4,10 +4,10 @@ import { Loader } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
 import MainLayout from "../layout/MainLayout";
 import { Link, useLocation } from "react-router-dom";
-import DashSidebar from "../components/DashSidebar";
-import DashboardComponent from "../components/DashboardComponent";
-import DashUsers from "../components/DashUsers";
-import DashProfile from "../components/DashProfile";
+import DashSidebar from "../Components/DashSidebar";
+import DashboardComponent from "../Components/DashboardComponent";
+import DashUsers from "../Components/DashUsers";
+import DashProfile from "../Components/DashProfile";
 import { MdLogout } from "react-icons/md";
 
 const fadeInUp = {
@@ -37,6 +37,8 @@ export default function UserDashboard() {
     }
   }, [location.search]);
 
+  console.log(user);
+
   return (
     // <MainLayout>
     <motion.div
@@ -46,12 +48,12 @@ export default function UserDashboard() {
       exit={{ opacity: 0, scale: 0.9 }}
       className="w-full min-h-screen flex flex-col"
     >
-      <div className="flex flex-col items-end w-full px-2 md:px-10 py-3 border-b-2 border-b-yellow-950">
+      <div className="flex flex-col items-end w-full px-2 md:px-10 py-3 border-b-2 border-b-yellow-950 bg-yellow-500">
         {user ? (
           <div className="px-2 py-1 rounded flex items-center gap-2">
-            {user?.role === "admin" ||
+            {user?.role === "owner" ||
             user?.role === "architect" ||
-            user?.role === "editor" ? (
+            user?.role === "staff" ? (
               <>
                 <Link
                   to={"/user-dashboard?tab=messages"}
@@ -78,7 +80,7 @@ export default function UserDashboard() {
             <div className="flex items-center ml-4 bg-red-100 px-2 py-1 rounded">
               <MdLogout
                 className="text-lg text-red-600 cursor-pointer hover:scale-110 transition-all duration-300"
-                onClick={() => confirmLogout()}
+                onClick={() => logout()}
               />
             </div>
           </div>
@@ -106,14 +108,14 @@ export default function UserDashboard() {
           <DashSidebar />
         </div>
 
+        {/* for dashboard */}
+        {tab === "dash" && <DashboardComponent />}
+
         {/* profile ... */}
         {tab === "profile" && <DashProfile />}
 
         {/* for users */}
         {tab === "users" && <DashUsers />}
-
-        {/* for dashboard */}
-        {tab === "dash" && <DashboardComponent />}
 
         {/* <div className="space-y-6">
           <motion.div

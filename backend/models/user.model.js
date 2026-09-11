@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     role: {
       type: String,
-      enum: ["architect", "contributor", "editor", "staff", "reader"],
+      enum: ["architect", "user", "staff", "owner"],
       required: true,
     },
 
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
     },
 
-    avatar: {
+    image: {
       type: String,
       default:
         "https://img.freepik.com/premium-vector/black-white-handshake-symbol-with-starburst-background_1294240-23568.jpg",

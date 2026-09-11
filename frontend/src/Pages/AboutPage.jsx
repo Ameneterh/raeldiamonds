@@ -7,7 +7,7 @@ import { assets } from "../assets/assets";
 export default function AboutPage() {
   return (
     <MainLayout>
-      <section className="flex flex-col max-w-7xl mx-auto min-h-[60svh] mt-8 sm:mt-0">
+      <section className="flex flex-col max-w-7xl mx-auto min-h-[60svh] mt-8 sm:mt-10 p-2">
         <div className="text-2xl text-center">
           <TitleText text1={"about"} text2={"us"} />
         </div>

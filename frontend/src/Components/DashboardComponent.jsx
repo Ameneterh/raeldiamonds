@@ -110,24 +110,24 @@ export default function DashboardComponent() {
         {/* show total number of businesses */}
         <AdminDashboardComponent
           totalUsers={totalComments}
-          type="Businesses"
-          heading={"all businesses"}
+          type="Orders"
+          heading={"all orders"}
           lastMonthUsers={lastMonthComments}
         />
 
         {/* total invoices created */}
         <AdminDashboardComponent
           totalUsers={totalPosts}
-          type="Clients"
-          heading={"all clients"}
+          type="Notifications"
+          heading={"all notifications"}
           lastMonthUsers={lastMonthPosts}
         />
 
         {/* total invoices created */}
         <AdminDashboardComponent
           totalUsers={totalPosts}
-          type="Invoices"
-          heading={"all invoices"}
+          type="Ratings"
+          heading={"all ratings"}
           lastMonthUsers={lastMonthPosts}
         />
       </div>
@@ -135,95 +135,32 @@ export default function DashboardComponent() {
       <Divider />
       <div className="flex-wrap flex gap-4 justify-between">
         {/* total for all invoices */}
-        <UserDashboardComponents
+        {/* <UserDashboardComponents
           totalPaid={100000}
           text={"Total for Invoices"}
           icon={<SiParamountplus />}
           bgColor="white"
           indicator="bg-blue-600"
-        />
-
-        {/* total received for invoices raised */}
-        <UserDashboardComponents
-          totalPaid={10000}
-          text={"Total Payments Received"}
-          icon={<IoMdCheckmarkCircleOutline />}
-          bgColor="white"
-          indicator="bg-green-800"
-        />
-
-        {/* total pending for invoices raised */}
-        <UserDashboardComponents
-          totalPaid={90000}
-          text={"Total Amount Pending"}
-          icon={<FiPieChart />}
-          bgColor="white"
-          // indicator="green-950"
-        />
-
-        {/* total number of invoices raised */}
-        <UserDashboardComponents
-          totalPaid={2}
-          text={"Number of Invoices Raised"}
-          icon={<PiInvoiceBold />}
-          bgColor="white"
-          // indicator="green-950"
-        />
-
-        {/* number of paid invoices */}
-        <UserDashboardComponents
-          totalPaid={1}
-          text={"Paid Invoices"}
-          icon={<IoMdCheckmarkCircleOutline />}
-          bgColor="white"
-          indicator="bg-green-800"
-        />
-
-        {/* number of partially paid invoices */}
-        <UserDashboardComponents
-          totalPaid={0}
-          text={"Partially Paid Invoices"}
-          icon={<FiPieChart />}
-          bgColor="white"
-          // indicator="green-950"
-        />
-
-        {/* number of unpaid invoices */}
-        <UserDashboardComponents
-          totalPaid={1}
-          text={"Unpaid Invoices"}
-          icon={<FaRegSadTear />}
-          bgColor="white"
-          indicator="bg-orange-400"
-        />
-
-        {/* number of invoices overdue */}
-        <UserDashboardComponents
-          totalPaid={1}
-          text={"Overdue Invoices"}
-          icon={<IoIosTimer />}
-          bgColor="white"
-          indicator="bg-red-600"
-        />
+        /> */}
       </div>
       <div className="flex-wrap flex gap-4 justify-between"></div>
 
       {/* display recent payments */}
       <div className="w-full bg-slate-50 p-2 rounded">
-        <h1 className="text-center py-4 font-bold">
+        <h1 className="text-center py-4 font-bold text-lg">
           {paymentHistory.length
-            ? "Recent Payments"
-            : "No payments received yet"}
+            ? "Most Recent Orders"
+            : "No orders received yet"}
         </h1>
         <table className="w-full">
           <tbody>
             {/* {paymentHistory?.length !== 0 && ( */}
             <tr>
-              <th style={{ padding: "15px" }}></th>
-              <th style={{ padding: "15px" }}>Paid By</th>
-              <th style={{ padding: "15px" }}>Date Paid</th>
-              <th style={{ padding: "15px" }}>Amount Paid</th>
-              <th style={{ padding: "15px" }}>Payment Method</th>
+              {/* <th style={{ padding: "15px" }}></th> */}
+              <th style={{ padding: "15px" }}>Ordered By</th>
+              <th style={{ padding: "15px" }}>Total Order</th>
+              <th style={{ padding: "15px" }}>Pay Status</th>
+              <th style={{ padding: "15px" }}>Delivery Status</th>
               <th style={{ padding: "15px" }}>Note</th>
             </tr>
             {/* )} */}

@@ -51,7 +51,16 @@ export default function CollectionsPage() {
 
   return (
     <MainLayout>
-      <div className="flex gap-5 mt-8 min-h-svh max-w-7xl mx-auto p-2 md:p-0 my-8">
+      <div className="text-2xl text-center my-8">
+        <TitleText text1={"our"} text2={"collections"} />
+        <p className="max-w-xl text-center mx-auto text-xs">
+          Brief word about collections. Omnis quisquam unde voluptatibus
+          quibusdam et expedita. Rerum officiis quae dicta, fugit, facere
+          dolores voluptate, rem ad minima ratione explicabo. Quaerat, quod?
+        </p>
+      </div>
+
+      <div className="flex gap-5 min-h-svh max-w-7xl mx-auto p-2 mb-8">
         {showFilters && (
           <ProductFiltersComponent
             showFilters={showFilters}

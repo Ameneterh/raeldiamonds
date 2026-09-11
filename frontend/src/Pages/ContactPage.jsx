@@ -17,7 +17,7 @@ import { company_info } from "../assets/company_info.js";
 export default function ContactPage() {
   return (
     <MainLayout>
-      <section className="max-w-7xl mx-auto min-h-[60svh] mt-8 sm:mt-0">
+      <section className="max-w-7xl mx-auto min-h-[60svh] mt-8">
         <div className="text-center text-2xl">
           <TitleText text1={"contact"} text2={"us"} />
         </div>
