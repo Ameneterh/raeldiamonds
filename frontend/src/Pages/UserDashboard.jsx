@@ -9,6 +9,7 @@ import DashboardComponent from "../Components/DashboardComponent";
 import DashUsers from "../Components/DashUsers";
 import DashProfile from "../Components/DashProfile";
 import { MdLogout } from "react-icons/md";
+import AddProduct from "../Components/AddProduct";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -116,6 +117,12 @@ export default function UserDashboard() {
 
         {/* for users */}
         {tab === "users" && <DashUsers />}
+
+        {/* for users */}
+        {tab === "add-category" && <DashUsers />}
+
+        {/* for users */}
+        {tab === "add-product" && <AddProduct />}
 
         {/* <div className="space-y-6">
           <motion.div

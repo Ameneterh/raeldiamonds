@@ -63,7 +63,9 @@ export default function DashUsers() {
 
   return (
     <div className="w-full table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      Users
+      <h1 className="border-l-2 border-l-red-800 pl-2 text-black text-xl md:text-4xl font-serif font-extrabold mb-3 flex gap-3 w-full items-center">
+        Users <span className="h-[2px] bg-slate-800 w-full"></span>
+      </h1>
     </div>
   );
 }

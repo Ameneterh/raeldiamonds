@@ -12,6 +12,7 @@ import {
   MdAddBusiness,
   MdOutlineContentPasteGo,
 } from "react-icons/md";
+import { AiOutlineProduct } from "react-icons/ai";
 import { TbMessage } from "react-icons/tb";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
@@ -63,7 +64,7 @@ export default function DashSidebar() {
                 <Sidebar.Item
                   active={tab === "profile"}
                   icon={HiUser}
-                  label={user.isAdmin ? "Admin" : "User"}
+                  label={user.isAdmin ? "Admin" : "Client"}
                   labelColor="dark"
                   as="div"
                 >
@@ -113,7 +114,7 @@ export default function DashSidebar() {
                   </Sidebar.Item>
                 </Link> */}
 
-                <Link to="/add-category">
+                <Link to="/user-dashboard?tab=add-category">
                   <Sidebar.Item
                     icon={MdOutlineContentPasteGo}
                     as="div"
@@ -122,13 +123,13 @@ export default function DashSidebar() {
                     Add Category
                   </Sidebar.Item>
                 </Link>
-                <Link to="/add-content">
+                <Link to="/user-dashboard?tab=add-product">
                   <Sidebar.Item
-                    icon={MdOutlineContentPasteGo}
+                    icon={AiOutlineProduct}
                     as="div"
                     className="text-nowrap"
                   >
-                    Add Content
+                    Add Product
                   </Sidebar.Item>
                 </Link>
               </>
@@ -141,26 +142,6 @@ export default function DashSidebar() {
           >
             Sign Out
           </Sidebar.Item>
-        </Sidebar.ItemGroup>
-      </Sidebar.Items>
-
-      {/* user actions ------------- create invoice, add client */}
-      <Sidebar.Items className="">
-        <Sidebar.ItemGroup className="flex flex-col gap-1">
-          {user && (
-            <>
-              <Link to="/create-invoice">
-                <Sidebar.Item icon={MdOutlineCreateNewFolder} as="div">
-                  Invoice
-                </Sidebar.Item>
-              </Link>
-              <Link to="/add-client">
-                <Sidebar.Item icon={MdAddBusiness} as="div">
-                  Add Client
-                </Sidebar.Item>
-              </Link>
-            </>
-          )}
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>

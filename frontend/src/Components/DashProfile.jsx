@@ -263,8 +263,8 @@ export default function DashProfile() {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
-              <div
-                className="absolute right-2 inset-y-0 cursor-pointer flex items-center mt-2"
+              {/* <div
+                className="absolute right-2 inset-y-0 cursor-pointer flex items-center"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
@@ -272,13 +272,13 @@ export default function DashProfile() {
                 ) : (
                   <Eye className="size-5 text-green-500" />
                 )}
+              </div> */}
+              <div
+                className="my-1 absolute  right-1 inset-y-0 flex items-center gap-2 text-xs font-bold px-2 py-2 bg-blue-600 rounded-full text-white hover:opacity-75 cursor-pointer transition-all duration-300"
+                onClick={() => setShowUpdatePassword(true)}
+              >
+                <Squirrel size={20} /> Update
               </div>
-            </div>
-            <div
-              className="flex items-center gap-2 text-xs font-bold px-2 py-2 bg-blue-600 rounded text-white hover:opacity-75 cursor-pointer hover:scale-110 transition-all duration-300"
-              onClick={() => setShowUpdatePassword(true)}
-            >
-              <Squirrel size={20} /> Update
             </div>
           </div>
 
@@ -341,7 +341,7 @@ export default function DashProfile() {
 
         <div className="flex flex-col md:flex-row gap-3">
           <motion.button
-            className="w-full py-3 px-4 bg-gradient-to-r from-green-700 to-emerald-700 rounded-lg hover:border-white hover:from-green-600 hover:to-emerald-700 border border-green-700 focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-1 focus:ring-offset-gray-900 transition duration-200 cursor-pointer flex items-center justify-center text-white"
+            className="w-full max-w-fit py-3 px-4 bg-gradient-to-r from-green-700 to-emerald-700 rounded-lg hover:border-white hover:from-green-600 hover:to-emerald-700 border border-green-700 focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-1 focus:ring-offset-gray-900 transition duration-200 cursor-pointer flex items-center justify-center text-white"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
