@@ -14,7 +14,7 @@ export const company_info = {
   tagline: ["Excellence", "Reliability", "Quality"],
   // address: "No 5 Irode Matthew Street Ado Ekiti, Ekiti State",
   call_number: "+2349044868438",
-  whatsapp_number: "+2349044868438",
+  whatsapp_number: "2349044868438",
   email: "pharmnneoma25@yahoo.com",
   website: "https://raeldiamonds.onrender.com",
   mission:

@@ -137,8 +137,8 @@ export default function ProductPage() {
                   className={`p-2 rounded text-white text-xs font-medium ${product?.logistics_included ? "bg-green-600" : "bg-red-600"}`}
                 >
                   {product?.logistics_included
-                    ? "Shipping Included"
-                    : "Shipping Not Included"}
+                    ? "Free Delivery"
+                    : "Delivery Fee: Location Based"}
                 </span>
               </div>
 

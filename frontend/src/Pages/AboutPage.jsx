@@ -41,10 +41,10 @@ export default function AboutPage() {
               <b className="">Our Mission</b>
               <p>
                 To provide a seamless and enjoyable online shopping experience,
-                by providing an easy to use platform for both vendors and
-                shoppers, committed to delivering exceptional customer service,
-                ensuring fast and reliable delivery, and fostering a secure,
-                convenient shopping environment for all our clients.
+                by providing an easy to use platform for our clients, committed
+                to delivering exceptional customer service, ensuring fast and
+                reliable delivery, and fostering a secure, convenient shopping
+                environment for all our clients.
               </p>
             </div>
             <div className="flex flex-col gap-4">

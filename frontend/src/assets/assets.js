@@ -42,10 +42,11 @@ import watch_3 from "./watch_3.jpeg";
 export const categories = [
   {
     id: 1,
-    name: "accessories",
-    slug: "accessories",
-    image: belt_1,
+    name: "rings",
+    slug: "rings",
+    image: diamond_rings_1,
   },
+
   {
     id: 2,
     name: "bracelets",
@@ -60,9 +61,9 @@ export const categories = [
   },
   {
     id: 4,
-    name: "rings",
-    slug: "rings",
-    image: diamond_rings_1,
+    name: "accessories",
+    slug: "accessories",
+    image: belt_1,
   },
   {
     id: 5,
