@@ -3,13 +3,9 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdFilterList } from "react-icons/md";
 import { IoSearchOutline } from "react-icons/io5";
 import MainLayout from "../layout/MainLayout";
-import { ShopContext } from "../context/shopContext";
 import TitleText from "../Components/TitleText";
 import ProductItem from "../Components/ProductItem";
-import { Input } from "antd";
-import { GetProducts } from "../apiCalls/products";
 import ProductFiltersComponent from "../Components/ProductFiltersComponent";
-import { products } from "../assets/assets.js";
 import { useProductStore } from "../store/productStore";
 
 export default function CollectionsPage() {
@@ -19,7 +15,7 @@ export default function CollectionsPage() {
 
   const [filters, setFilters] = useState({
     status: "approved",
-    category: [],
+    category_name: [],
     sub_category: [],
     searchTerm: "",
   });

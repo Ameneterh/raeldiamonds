@@ -31,8 +31,6 @@ export default function ProductPage() {
 
   const product = products.find((item) => item.slug === slug);
 
-  console.log(product);
-
   const getAllProducts = async () => {
     try {
       const { products } = await getProducts();
@@ -87,7 +85,7 @@ export default function ProductPage() {
               </div>
 
               {/* product reviews and rating input */}
-              {/* <ProductReviewRating getData={getData} product={product} /> */}
+              <ProductReviewRating getData={getAllProducts} product={product} />
             </div>
 
             {/* product information */}

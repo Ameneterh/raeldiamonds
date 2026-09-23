@@ -101,7 +101,7 @@ export default function HeaderComponent() {
             <div className="group relative">
               <div className="">
                 <img
-                  src={user.avatar}
+                  src={user.image}
                   className="w-10 cursor-pointer rounded-full"
                 />
               </div>

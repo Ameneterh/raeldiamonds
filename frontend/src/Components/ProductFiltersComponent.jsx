@@ -9,7 +9,7 @@ export default function ProductFiltersComponent({
   setFilters,
 }) {
   const toggleCategory = (e) => {
-    if (category.includes(e.target.value)) {
+    if (category_name.includes(e.target.value)) {
       setCategory((prev) => prev.filter((item) => item != e.target.value));
     } else {
       setCategory((prev) => [...prev, e.target.value]);
@@ -17,7 +17,7 @@ export default function ProductFiltersComponent({
   };
 
   const toggleSubCategory = (e) => {
-    if (subCategory.includes(e.target.value)) {
+    if (sub_category.includes(e.target.value)) {
       setSubCategory((prev) => prev.filter((item) => item != e.target.value));
     } else {
       setSubCategory((prev) => [...prev, e.target.value]);
@@ -133,10 +133,10 @@ export default function ProductFiltersComponent({
     },
   ];
 
-  console.log(filters.category);
+  console.log(filters.category_name);
 
   useEffect(() => {
-    console.log(filters.category);
+    console.log(filters.category_name);
   }, [filters]);
 
   return (
@@ -160,7 +160,7 @@ export default function ProductFiltersComponent({
                   type="checkbox"
                   name="category"
                   className="max-width"
-                  checked={filters.category.includes(category.value)}
+                  checked={filters.category_name.includes(category.value)}
                   onChange={(e) => {
                     if (e.target.checked) {
                       setFilters({
@@ -171,7 +171,7 @@ export default function ProductFiltersComponent({
                       setFilters({
                         ...filters,
                         category: filters.category.filter(
-                          (item) => item !== category.value
+                          (item) => item !== category.value,
                         ),
                       });
                     }
@@ -189,7 +189,7 @@ export default function ProductFiltersComponent({
         <p className="text-sm font-medium">SUB CATEGORY</p>
         <div className="flex flex-col gap-1">
           {/* health & beauty */}
-          {filters.category.includes("health_beauty") &&
+          {filters.category_name.includes("health_beauty") &&
             sub_categories.slice(0, 5).map((sub_category) => {
               return (
                 <div className="flex items-center gap-2 text-sm h-6">
@@ -211,7 +211,7 @@ export default function ProductFiltersComponent({
                         setFilters({
                           ...filters,
                           sub_category: filters.sub_category.filter(
-                            (item) => item !== sub_category.value
+                            (item) => item !== sub_category.value,
                           ),
                         });
                       }
@@ -223,7 +223,7 @@ export default function ProductFiltersComponent({
             })}
 
           {/* fashion & wears */}
-          {filters.category.includes("fashion_wears") &&
+          {filters.category_name.includes("fashion_wears") &&
             sub_categories.slice(5, 12).map((sub_category) => {
               return (
                 <div className="flex items-center gap-2 text-sm h-6">
@@ -245,7 +245,7 @@ export default function ProductFiltersComponent({
                         setFilters({
                           ...filters,
                           sub_category: filters.sub_category.filter(
-                            (item) => item !== sub_category.value
+                            (item) => item !== sub_category.value,
                           ),
                         });
                       }
@@ -257,7 +257,7 @@ export default function ProductFiltersComponent({
             })}
 
           {/* kids & babies */}
-          {filters.category.includes("kids_babies") &&
+          {filters.category_name.includes("kids_babies") &&
             sub_categories.slice(12, 15).map((sub_category) => {
               return (
                 <div className="flex items-center gap-2 text-sm h-6">
@@ -279,7 +279,7 @@ export default function ProductFiltersComponent({
                         setFilters({
                           ...filters,
                           sub_category: filters.sub_category.filter(
-                            (item) => item !== sub_category.value
+                            (item) => item !== sub_category.value,
                           ),
                         });
                       }
@@ -291,7 +291,7 @@ export default function ProductFiltersComponent({
             })}
 
           {/* kids & babies */}
-          {filters.category.includes("agric_food") &&
+          {filters.category_name.includes("agric_food") &&
             sub_categories.slice(15).map((sub_category) => {
               return (
                 <div className="flex items-center gap-2 text-sm h-6">
@@ -313,7 +313,7 @@ export default function ProductFiltersComponent({
                         setFilters({
                           ...filters,
                           sub_category: filters.sub_category.filter(
-                            (item) => item !== sub_category.value
+                            (item) => item !== sub_category.value,
                           ),
                         });
                       }
