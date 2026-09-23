@@ -101,7 +101,7 @@ export default function DashSidebar() {
                     icon={HiOutlineUserGroup}
                     as="div"
                   >
-                    Users
+                    User List
                   </Sidebar.Item>
                 </Link>
                 {/* <Link to="/user-dashboard?tab=businesses">
@@ -114,16 +114,25 @@ export default function DashSidebar() {
                   </Sidebar.Item>
                 </Link> */}
 
-                <Link to="/user-dashboard?tab=add-category">
+                <Link to="/user-dashboard?tab=category-list">
                   <Sidebar.Item
                     icon={MdOutlineContentPasteGo}
                     as="div"
                     className="text-nowrap"
                   >
-                    Add Category
+                    Category List
                   </Sidebar.Item>
                 </Link>
-                <Link to="/user-dashboard?tab=add-product">
+                <Link to="/user-dashboard?tab=products">
+                  <Sidebar.Item
+                    icon={AiOutlineProduct}
+                    as="div"
+                    className="text-nowrap"
+                  >
+                    Product List
+                  </Sidebar.Item>
+                </Link>
+                {/* <Link to="/user-dashboard?tab=add-product">
                   <Sidebar.Item
                     icon={AiOutlineProduct}
                     as="div"
@@ -131,7 +140,7 @@ export default function DashSidebar() {
                   >
                     Add Product
                   </Sidebar.Item>
-                </Link>
+                </Link> */}
               </>
             ))}
 

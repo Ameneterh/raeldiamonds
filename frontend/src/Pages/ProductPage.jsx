@@ -17,12 +17,13 @@ import BidsModal from "./sellerProfile/BidsModal";
 import ProductReviewRating from "../Components/ProductReviewRating";
 import ReviewDisplayComponent from "../Components/ReviewDisplayComponent";
 import RatingComponent from "../Components/RatingComponent";
-import { products } from "../assets/assets";
+import { useProductStore } from "../store/productStore";
 
 export default function ProductPage() {
   const navigate = useNavigate();
+  const { getProducts } = useProductStore();
 
-  // const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showAddBidsModal, setShowAddBidsModal] = useState(false);
 
@@ -30,25 +31,19 @@ export default function ProductPage() {
 
   const product = products.find((item) => item.slug === slug);
 
-  const getData = async () => {
-    // try {
-    //   const response = await GetProductById(productId);
-    //   if (response.success) {
-    //     const bidsResponse = await GetAllBids({ product: productId });
-    //     const reviewsResponse = await GetAllReviews({ product: productId });
-    //     setProduct({
-    //       ...response.data,
-    //       bids: bidsResponse.data,
-    //       reviews: reviewsResponse.data,
-    //     });
-    //   }
-    // } catch (error) {
-    //   message.error(error.message);
-    // }
+  console.log(product);
+
+  const getAllProducts = async () => {
+    try {
+      const { products } = await getProducts();
+      setProducts(products);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    getData();
+    getAllProducts();
   }, []);
 
   return (
@@ -59,13 +54,13 @@ export default function ProductPage() {
             {/* product images */}
             <div className="flex flex-col gap-2">
               <img
-                src={product.image[selectedImageIndex]}
+                src={product?.images[selectedImageIndex]}
                 alt=""
                 className="w-full h-96 object-cover rounded-md border border-solid border-gray-300"
               />
 
               <div className="flex gap-2 p-2 bg-black bg-opacity-20 mt-2 rounded">
-                {product.image.map((image, index) => {
+                {product?.images?.map((image, index) => {
                   return (
                     <img
                       // onClick={() => setImage(image)}
@@ -86,20 +81,20 @@ export default function ProductPage() {
               <div className="flex items-center gap-1">
                 <h1 className="text-sm text-gray-900">Added on</h1>
                 <span className="text-xs text-gray-700">
-                  {moment(product.createdAt).format("MMM DD, YYYY")} at{" "}
-                  {moment(product.createdAt).format("hh:mm A")}
+                  {moment(product?.createdAt).format("MMM DD, YYYY")} at{" "}
+                  {moment(product?.createdAt).format("hh:mm A")}
                 </span>
               </div>
 
               {/* product reviews and rating input */}
-              <ProductReviewRating getData={getData} product={product} />
+              {/* <ProductReviewRating getData={getData} product={product} /> */}
             </div>
 
             {/* product information */}
             <div className="flex-1">
               <div className="flex flex-col gap-1">
                 <h1 className="font-medium text-2xl text-blue-950">
-                  {product?.name}
+                  {product?.product_name}
                 </h1>
                 <hr className="h-[1.5px] flex-1 my-1" />
                 <p className="text-gray-500 text-sm">{product?.description}</p>
@@ -116,7 +111,7 @@ export default function ProductPage() {
                     />
 
                     <p className="text-sm text-gray-400 ml-2">
-                      From {product?.reviews.length}{" "}
+                      From {product?.reviews?.length}{" "}
                       {product?.reviews?.length > 1 ? "Reviewers" : "Reviewer"}
                     </p>
                   </>
@@ -129,7 +124,7 @@ export default function ProductPage() {
                   <span className="text-sm -mb-1">Asking Price:</span>
                   <div className="flex items-center  text-xl font-medium">
                     <TbCurrencyNaira size={20} />
-                    {product.price.toLocaleString()}
+                    {product?.price?.toLocaleString()}
                   </div>
                 </div>
 
@@ -166,13 +161,15 @@ export default function ProductPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4">
                   <p className="text-nowrap col-span-1">Category:</p>
                   <p className="capitalize col-span-1 md:col-span-3">
-                    {product.category.split("_").join(" & ")}
+                    {product?.category_name?.category_name
+                      ?.split("_")
+                      .join(" & ")}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4">
                   <p className="text-nowrap col-span-1">Sub Category:</p>
                   <p className="capitalize col-span-1 md:col-span-3">
-                    {product?.subCategory}
+                    {product?.sub_category}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4">

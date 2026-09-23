@@ -1,19 +1,20 @@
-import Post from "../models/post.model.js";
+import Product from "../models/product.model.js";
 
 // save post
-export const savePost = async (req, res) => {
+export const addProduct = async (req, res) => {
   try {
-    const { postTitle, category, image, content, writer } = req.body;
+    const { product_name, category_name, sub_category, description, addedBy } =
+      req.body;
 
     // Validate required fields
-    if (!postTitle || !category || !content || !writer) {
+    if (!product_name || !category_name || !description || !addedBy) {
       return res.status(400).json({
         success: false,
         message: "Required fields missing!",
       });
     }
 
-    const slug = postTitle
+    const slug = product_name
       .toLowerCase()
       .normalize("NFKD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -22,18 +23,43 @@ export const savePost = async (req, res) => {
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-");
 
-    const post = await Post.create({
-      postTitle,
+    const product = await Product.create({
+      product_name,
       slug,
-      image,
-      category,
-      content,
-      writer,
+      category_name,
+      sub_category,
+      description,
+      addedBy,
     });
 
     res.status(201).json({
       success: true,
-      post,
+      product,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// get all reports
+export const getProducts = async (req, res) => {
+  try {
+    const products = await Product.find()
+      .populate("addedBy")
+      .populate("category_name")
+      .populate("reviews.buyer")
+      .sort({ createdAt: -1 });
+
+    const totalProducts = await Product.countDocuments();
+
+    res.status(200).json({
+      success: true,
+      message: "Products fetched successfully",
+      products,
+      totalProducts,
     });
   } catch (error) {
     res.status(500).json({
@@ -136,29 +162,6 @@ export const sendComment = async (req, res) => {
     res.status(201).json({
       success: true,
       post: post,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-
-// get all reports
-export const getPosts = async (req, res) => {
-  try {
-    const posts = await Post.find()
-      .populate("writer")
-      .populate("comments.commentBy")
-      .sort({ createdAt: -1 });
-
-    const totalPosts = await Post.countDocuments();
-
-    res.status(200).json({
-      success: true,
-      message: "Posts fetched successfully",
-      posts,
     });
   } catch (error) {
     res.status(500).json({

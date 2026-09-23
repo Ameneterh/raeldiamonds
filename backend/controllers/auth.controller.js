@@ -3,8 +3,6 @@ import crypto from "crypto";
 
 import User from "../models/user.model.js";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
-import Page from "../models/pages.model.js";
-import { log } from "console";
 
 // add new user
 export const addUser = async (req, res) => {

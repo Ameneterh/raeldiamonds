@@ -3,34 +3,9 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import MainLayout from "../layout/MainLayout.jsx";
 import { useAuthStore } from "../store/authStore.js";
-
-import { RiArrowGoBackLine } from "react-icons/ri";
-import { FaCloudDownloadAlt } from "react-icons/fa";
-import {
-  CalendarDays,
-  FileDigit,
-  FolderPen,
-  Loader,
-  Mail,
-  MapPinCheck,
-  PhoneCall,
-} from "lucide-react";
-import {
-  MdAddBusiness,
-  MdCloudUpload,
-  MdLockReset,
-  MdOutlineCreateNewFolder,
-  MdOutlinePublishedWithChanges,
-} from "react-icons/md";
-import { VscPreview } from "react-icons/vsc";
-import { TbReport } from "react-icons/tb";
-import { FaSave } from "react-icons/fa";
-// import { usePostStore } from "../store/postStore.js";
-import ReactQuill from "react-quill";
-import { modules } from "../modules.js";
-import "react-quill/dist/quill.snow.css";
+import { Loader } from "lucide-react";
+import { MdOutlinePublishedWithChanges } from "react-icons/md";
 import {
   getDownloadURL,
   getStorage,
@@ -39,7 +14,8 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase.js";
 import { AiOutlineProduct } from "react-icons/ai";
-// import { useCategoryStore } from "../store/categoryStore.js";
+import { useCategoryStore } from "../store/categoryStore.js";
+import { useProductStore } from "../store/productStore.js";
 
 export default function AddProduct() {
   const [file, setFile] = useState(null);
@@ -47,8 +23,8 @@ export default function AddProduct() {
   const [imageUploadError, setImageUploadError] = useState(null);
 
   const { user, isLoading } = useAuthStore();
-  // const { savePost, isLoading } = usePostStore();
-  // const { getAllCategories } = useCategoryStore();
+  const { getCategories, error } = useCategoryStore();
+  const { addProduct } = useProductStore();
 
   const navigate = useNavigate();
 
@@ -99,46 +75,51 @@ export default function AddProduct() {
     }
   };
 
-  // get categories
-  const getCategories = async () => {
-    // try {
-    //   const { categories } = await getAllCategories();
-    //   setCategories(categories);
-    //   return categories;
-    // } catch (error) {
-    //   console.log(error);
-    //   return [];
-    // }
+  //   getting categories
+  const getAllCategories = async () => {
+    try {
+      const { categories } = await getCategories();
+      setCategories(categories);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    getAllCategories();
+  }, [user]);
 
   // save post
-  const saveNewPost = async (e) => {
+  const saveNewProduct = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   await savePost({
-    //     postTitle: formData.postTitle,
-    //     image: formData.image,
-    //     category: formData.category,
-    //     content: formData.content,
-    //     writer: user._id,
-    //   });
+    try {
+      await addProduct({
+        product_name: formData.product_name,
+        category_name: formData.category_name,
+        sub_category: formData.sub_category,
+        description: formData.description,
+        addedBy: user._id,
+      });
 
-    //   toast.success("Post saved successfully!");
-    //   navigate("/user-dashboard?tab=posts");
-    // } catch (error) {
-    //   toast.error(error.response.data.message);
-    //   console.log(error);
-    // }
+      toast.success("New product added successfully!");
+      navigate("/user-dashboard?tab=products");
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    const { id, type, value, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [id]: type === "checkbox" ? checked : value,
+    }));
   };
+
+  console.log(formData);
 
   return (
     <div className="md:px-10 mt-6 w-full">
@@ -151,10 +132,10 @@ export default function AddProduct() {
       >
         <p className="flex items-center gap-1 text-xl font-extrabold mb-6 text-blue-950 text-center border-b-2 border-b-red-900 pb-2">
           <AiOutlineProduct size={20} />
-          Add Content
+          Add Product
         </p>
 
-        <form onSubmit={saveNewPost}>
+        <form onSubmit={saveNewProduct}>
           <div className="flex flex-col justify-center gap-y-5">
             <article className="flex flex-col gap-5 mb-4">
               {/* post title */}
@@ -164,16 +145,42 @@ export default function AddProduct() {
                   <span className="text-red-600 font-bold ml-1">*</span>
                 </p>
                 <input
+                  id="product_name"
                   value={formData.product_name}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      product_name: e.target.value,
-                    })
-                  }
+                  onChange={handleChange}
                   placeholder="Enter product name as it should appear when published"
                   className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border-transparent focus:border-b-2 focus:border-b-red-700 border-transparent"
                 />
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 relative w-full border-none">
+                  <p className="text-xs bg-white font-semibold absolute -top-2 px-1 flex items-center gap-[2px]">
+                    Product Price
+                    <span className="text-red-600 font-bold ml-1">*</span>
+                  </p>
+                  <input
+                    id="price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    placeholder="Enter product price"
+                    className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border-transparent focus:border-b-2 focus:border-b-red-700 border-transparent"
+                  />
+                </div>
+
+                {/* <div className="flex flex-col sm:flex-row gap-3 relative w-full border-none">
+                  <p className="text-xs bg-white font-semibold absolute -top-2 px-1 flex items-center gap-[2px]">
+                    Product Price
+                    <span className="text-red-600 font-bold ml-1">*</span>
+                  </p>
+                  <input
+                    id="price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    placeholder="Enter product price"
+                    className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border-transparent focus:border-b-2 focus:border-b-red-700 border-transparent"
+                  />
+                </div> */}
               </div>
 
               <div className="flex flex-col md:flex-row items-center gap-4">
@@ -214,71 +221,92 @@ export default function AddProduct() {
                     <span className="text-red-600 font-bold ml-1">*</span>
                   </p>
                   <select
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        category: e.target.value,
-                      })
-                    }
+                    id="category_name"
+                    value={formData.category_name}
+                    onChange={handleChange}
                     className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border-transparent focus:border-b-2 focus:border-b-red-700 border-transparent capitalize"
                   >
                     <option>Select category</option>
                     {categories?.map((category) => (
                       <option
                         key={category._id}
-                        value={category.name}
+                        value={category._id}
                         className="capitalize"
                       >
-                        {category.name}
+                        {category.category_name}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 {/* select post subcategory */}
-                <div className="flex flex-col sm:flex-row gap-3 relative w-full border-none">
-                  <p className="text-xs bg-white font-semibold absolute -top-2 px-1 flex items-center gap-[2px]">
-                    Product Sub Category
-                    <span className="text-red-600 font-bold ml-1">*</span>
-                  </p>
-                  <select
-                    // value={formData.category}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        subCategory: e.target.value,
-                      })
-                    }
-                    className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border-transparent focus:border-b-2 focus:border-b-red-700 border-transparent"
-                  >
-                    <option>Select sub-category</option>
-                    <option value="economy">Economy</option>
-                    <option value="health">Health</option>
-                    <option value="politics">Politics</option>
-                    <option value="security">Security</option>
-                  </select>
-                </div>
+                {formData.category_name === "watches" ? (
+                  <div className="flex flex-col sm:flex-row gap-3 relative w-full border-none">
+                    <p className="text-xs bg-white font-semibold absolute -top-2 px-1 flex items-center gap-[2px]">
+                      Product Sub Category
+                      <span className="text-red-600 font-bold ml-1">*</span>
+                    </p>
+                    <select
+                      id="subCategory"
+                      onChange={handleChange}
+                      className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border-transparent focus:border-b-2 focus:border-b-red-700 border-transparent"
+                    >
+                      <option>Select sub-category</option>
+                      <option value="economy">Economy</option>
+                      <option value="health">Health</option>
+                      <option value="politics">Politics</option>
+                      <option value="security">Security</option>
+                    </select>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
 
-              {/* post content */}
-              <div className="flex flex-col sm:flex-row gap-3 relative w-full border-none">
-                <p className="text-xs bg-white font-semibold absolute -top-2 px-1 flex items-center gap-[2px]">
-                  Product Description
-                  <span className="text-red-600 font-bold ml-1">*</span>
-                </p>
+              <div className="flex flex-col md:flex-row gap-3">
+                {/* product description */}
+                <div className="flex flex-col sm:flex-row gap-3 relative w-full border-none">
+                  <p className="text-xs bg-white font-semibold absolute -top-2 left-2 px-1 flex items-center gap-[2px]">
+                    Product Description
+                    <span className="text-red-600 font-bold ml-1">*</span>
+                  </p>
 
-                <textarea className="w-full h-40" />
+                  <textarea
+                    id="description"
+                    className="w-full h-40 rounded-md p-2"
+                    placeholder="Enter product description here ..."
+                    onChange={handleChange}
+                  />
+                </div>
 
-                {/* <ReactQuill
-                  theme="snow"
-                  modules={modules}
-                  placeholder="Enter post content here ..."
-                  className="h-96 mb-12 w-full"
-                  required
-                  onChange={(value) => {
-                    setFormData({ ...formData, content: value });
-                  }}
-                /> */}
+                {/* freebies */}
+                <div className="flex flex-col gap-3 relative w-full border-none items-start">
+                  {/* free delivery */}
+                  <div className="flex items-center gap-2">
+                    <label className="text-nowrap text-sm flex items-center gap-1">
+                      <input
+                        type="checkbox"
+                        id="deliveryIncluded"
+                        checked={formData.deliveryIncluded}
+                        onChange={handleChange}
+                      />
+                      Free Delivery
+                    </label>
+                  </div>
+
+                  {/* free gift */}
+                  <div className="flex items-center">
+                    <label className="text-nowrap text-sm flex items-center gap-1">
+                      <input
+                        type="checkbox"
+                        id="freeGift"
+                        checked={formData.freeGift}
+                        onChange={handleChange}
+                      />
+                      Free Gift(s)
+                    </label>
+                  </div>
+                </div>
               </div>
             </article>
 

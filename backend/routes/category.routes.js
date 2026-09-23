@@ -4,13 +4,13 @@ import jwt from "jsonwebtoken";
 import { verifyToken } from "../middlewares/verifyToken.js";
 import {
   addCategory,
-  getAllCategories,
+  getCategories,
 } from "../controllers/category.controller.js";
 
 const router = express.Router();
 
-router.post("/save-category", addCategory);
-router.get("/get-categories", getAllCategories);
+router.post("/add-category", addCategory);
+router.get("/get-categories", getCategories);
 // router.put("/read/:slug", incrementReads);
 // router.put("/edit-post/:postId", editPost);
 // router.put("/send-comment", sendComment);

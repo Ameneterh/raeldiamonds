@@ -3,19 +3,19 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { verifyToken } from "../middlewares/verifyToken.js";
 import {
-  savePost,
+  addProduct,
+  getProducts,
   editPost,
-  getPosts,
   sendComment,
   incrementReads,
-} from "../controllers/post.controller.js";
+} from "../controllers/product.controller.js";
 
 const router = express.Router();
 
-router.post("/save-post", savePost);
+router.post("/add-product", addProduct);
+router.get("/get-products", getProducts);
 router.put("/read/:slug", incrementReads);
 router.put("/edit-post/:postId", editPost);
-router.get("/get-posts", getPosts);
 router.put("/send-comment", sendComment);
 
 export default router;

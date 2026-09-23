@@ -44,26 +44,26 @@ input,
 select {
   height: 40px !important;
   width: 100% !important;
-  border: 1px solid #b9b9b9 !important;
-  border-radius: 50px !important;
+  /* border: 1px solid #b9b9b9 !important; */
+  border-radius: 8px !important;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
   outline: none !important;
-  border: 1px solid #b9b9b9 !important;
+  /* border: 1px solid #b9b9b9 !important; */
   box-shadow: none !important;
 }
 
 button {
-  height: 40px !important;
-  box-shadow: none !important;
+  /* height: 40px !important; */
+  /* box-shadow: none !important; */
   cursor: pointer !important;
 }
 
 table {
-  border: #b9b9b9 1px solid !important;
+  /* border: #b9b9b9 1px solid !important; */
   border-radius: 3px;
 }
 
@@ -73,4 +73,10 @@ table {
 
 .input-rounded-full {
   border-radius: 25px !important;
+}
+
+.small-input {
+  height: 14px !important;
+  width: 14px !important;
+  /* margin-right: 4px !important; */
 }

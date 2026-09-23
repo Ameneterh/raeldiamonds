@@ -1,7 +1,7 @@
 import authRouter from "./routes/auth.routes.js";
 import contactRouter from "./routes/contact.routes.js ";
 import subscriptionRouter from "./routes/subscription.routes.js";
-import postRouter from "./routes/post.routes.js";
+import productRouter from "./routes/product.routes.js";
 import categoryRouter from "./routes/category.routes.js";
 import updateRouter from "./routes/update.routes.js";
 import express from "express";
@@ -30,9 +30,10 @@ mongoose
   .catch((error) => console.log(error));
 
 app.use("/backend/v1/auth", authRouter);
-app.use("/backend/v1/contact", contactRouter);
 app.use("/backend/v1/subscription", subscriptionRouter);
-app.use("/backend/v1/post", postRouter);
+app.use("/backend/v1/product", productRouter);
+
+app.use("/backend/v1/contact", contactRouter);
 app.use("/backend/v1/category", categoryRouter);
 app.use("/backend/v1/update", updateRouter);
 app.use(

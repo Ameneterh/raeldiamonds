@@ -10,6 +10,8 @@ import DashUsers from "../Components/DashUsers";
 import DashProfile from "../Components/DashProfile";
 import { MdLogout } from "react-icons/md";
 import AddProduct from "../Components/AddProduct";
+import DashProducts from "../Components/DashProducts";
+import DashCategories from "../Components/DashCategories";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -37,8 +39,6 @@ export default function UserDashboard() {
       setTab(tabFromUrl);
     }
   }, [location.search]);
-
-  console.log(user);
 
   return (
     // <MainLayout>
@@ -119,7 +119,10 @@ export default function UserDashboard() {
         {tab === "users" && <DashUsers />}
 
         {/* for users */}
-        {tab === "add-category" && <DashUsers />}
+        {tab === "category-list" && <DashCategories />}
+
+        {/* for users */}
+        {tab === "products" && <DashProducts />}
 
         {/* for users */}
         {tab === "add-product" && <AddProduct />}

@@ -10,9 +10,13 @@ import { Input } from "antd";
 import { GetProducts } from "../apiCalls/products";
 import ProductFiltersComponent from "../Components/ProductFiltersComponent";
 import { products } from "../assets/assets.js";
+import { useProductStore } from "../store/productStore";
 
 export default function CollectionsPage() {
-  // const [products, setProducts] = useState([]);
+  const { getProducts } = useProductStore();
+
+  const [products, setProducts] = useState([]);
+
   const [filters, setFilters] = useState({
     status: "approved",
     category: [],
@@ -27,12 +31,25 @@ export default function CollectionsPage() {
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
 
+  // const getAllProducts = async () => {
+  //   try {
+  //     const { products } = await getProducts();
+  //     setProducts(products);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getAllProducts();
+  // }, []);
+
   const getData = async () => {
     try {
-      const response = await GetProducts(filters);
+      const { products } = await getProducts();
 
-      if (response.success) {
-        let productsCopy = response.data.slice();
+      if (products.length > 0) {
+        let productsCopy = products.slice();
         if (searchTerm) {
           productsCopy = productsCopy.filter((item) =>
             item.product_name.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -106,12 +123,12 @@ export default function CollectionsPage() {
                 key={index}
                 id={product?._id}
                 slug={product.slug}
-                name={product?.name}
-                category={product?.category.split("_").join(" & ")}
+                name={product?.product_name}
+                category={product?.category_name?.category_name}
                 description={product?.description}
                 delivery={product?.logistics_included}
                 asking_price={product?.price}
-                image={product?.image[0]}
+                image={product?.images[0]}
               />
             ))}
           </div>

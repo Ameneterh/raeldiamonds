@@ -1,20 +1,21 @@
 import User from "../models/user.model.js";
 import Category from "../models/category.model.js";
 
-// save post
+// save category
 export const addCategory = async (req, res) => {
   try {
-    const { name, image, description, addedBy } = req.body;
+    const { category_name, image, category_description, addedBy } = req.body;
 
     // Validate required fields
-    if (!name || !image || !description || !addedBy) {
+    if (!category_name || !image || !category_description || !addedBy) {
       return res.status(400).json({
         success: false,
         message: "Required fields missing!",
       });
     }
 
-    const slug = name
+    // create slug
+    const slug = category_name
       .split(" ")
       .join("-")
       .toLowerCase()
@@ -22,10 +23,10 @@ export const addCategory = async (req, res) => {
       .replace(/[^a-zA-Z0-9-]/g, "-");
 
     const category = await Category.create({
-      name,
+      category_name,
       slug,
       image,
-      description,
+      category_description,
       addedBy,
     });
 
@@ -42,7 +43,7 @@ export const addCategory = async (req, res) => {
 };
 
 // get all categories
-export const getAllCategories = async (req, res) => {
+export const getCategories = async (req, res) => {
   try {
     const categories = await Category.find()
       .populate("addedBy")
