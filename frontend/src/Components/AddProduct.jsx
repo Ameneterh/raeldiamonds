@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore.js";
 import { Loader } from "lucide-react";
-import { MdOutlinePublishedWithChanges } from "react-icons/md";
+import { MdCloudUpload, MdOutlinePublishedWithChanges } from "react-icons/md";
 import {
   getDownloadURL,
   getStorage,
@@ -60,16 +60,14 @@ export default function AddProduct() {
             setImageUploadError(null);
             setFormData((prev) => ({
               ...prev,
-              image: downloadURL,
+              images: [downloadURL],
             }));
           });
         },
       );
     } catch (error) {
       console.error("OUTER UPLOAD ERROR:", error);
-
       toast.error(error?.message || "Image upload failed!!");
-
       setImageUploadProgress(null);
       console.log(error);
     }
@@ -85,6 +83,11 @@ export default function AddProduct() {
     }
   };
 
+  // get selected category
+  const selectedCategory = categories.find(
+    (category) => category._id === formData.category,
+  );
+
   useEffect(() => {
     getAllCategories();
   }, [user]);
@@ -95,18 +98,40 @@ export default function AddProduct() {
 
     try {
       await addProduct({
-        product_name: formData.product_name,
-        category_name: formData.category_name,
-        sub_category: formData.sub_category,
+        category_name: formData.category,
         description: formData.description,
+        freeGift: formData.freeGift,
+        logistics_included: formData.logistics_included,
+        freebies: formData.freeGift
+          ? {
+              number_of_freebies: Number(formData.number_of_freebies),
+              total_value: Number(formData.total_value),
+            }
+          : {
+              number_of_freebies: 0,
+              total_value: 0,
+            },
+
+        price: formData.price,
+        product_name: formData.product_name,
+        sub_category: formData.sub_category,
+        images: formData.images,
+        payondelivery: formData.payondelivery,
         addedBy: user._id,
       });
 
       toast.success("New product added successfully!");
       navigate("/user-dashboard?tab=products");
     } catch (error) {
-      toast.error(error.response.data.message);
-      console.log(error);
+      console.error("Add product error:", error);
+
+      const message =
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        error?.message ||
+        "Failed to add product. Please try again.";
+
+      toast.error(message);
     }
   };
 
@@ -206,9 +231,9 @@ export default function AddProduct() {
                   </motion.button>
                 </div>
 
-                {formData.image && (
+                {formData.images?.length > 0 && (
                   <img
-                    src={formData.image}
+                    src={formData.images[0]}
                     alt="upload"
                     className="bg-red-200 w-56 h-32 object-cover"
                   />
@@ -221,45 +246,53 @@ export default function AddProduct() {
                     <span className="text-red-600 font-bold ml-1">*</span>
                   </p>
                   <select
-                    id="category_name"
-                    value={formData.category_name}
+                    id="category"
+                    value={formData?.category || ""}
                     onChange={handleChange}
-                    className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border-transparent focus:border-b-2 focus:border-b-red-700 border-transparent capitalize"
+                    className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 
+             placeholder-gray-400 transition duration-200 flex-1 text-xs 
+             outline-none ring-0 focus:ring-0 focus:outline-none 
+             focus:border-transparent focus:border-b-2 focus:border-b-red-700 
+             border-transparent capitalize"
                   >
-                    <option>Select category</option>
+                    <option value="">Select category</option>
+
                     {categories?.map((category) => (
                       <option
-                        key={category._id}
-                        value={category._id}
+                        key={category?._id}
+                        value={category?._id}
                         className="capitalize"
                       >
-                        {category.category_name}
+                        {category?.category_name}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 {/* select post subcategory */}
-                {formData.category_name === "watches" ? (
+                {selectedCategory?.category_name?.toLowerCase() ===
+                  "watches" && (
                   <div className="flex flex-col sm:flex-row gap-3 relative w-full border-none">
                     <p className="text-xs bg-white font-semibold absolute -top-2 px-1 flex items-center gap-[2px]">
                       Product Sub Category
                       <span className="text-red-600 font-bold ml-1">*</span>
                     </p>
+
                     <select
-                      id="subCategory"
+                      id="sub_category"
+                      value={formData.sub_category || ""}
                       onChange={handleChange}
-                      className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border-transparent focus:border-b-2 focus:border-b-red-700 border-transparent"
+                      className="w-full sm:w-1/4 pl-2 pr-3 py-2 border-b border-b-gray-700 
+                 placeholder-gray-400 transition duration-200 flex-1 text-xs 
+                 outline-none ring-0 focus:ring-0 focus:outline-none 
+                 focus:border-transparent focus:border-b-2 
+                 focus:border-b-red-700 border-transparent"
                     >
-                      <option>Select sub-category</option>
+                      <option value="">Select sub-category</option>
                       <option value="economy">Economy</option>
-                      <option value="health">Health</option>
-                      <option value="politics">Politics</option>
-                      <option value="security">Security</option>
+                      <option value="luxury">Luxury</option>
                     </select>
                   </div>
-                ) : (
-                  <></>
                 )}
               </div>
 
@@ -280,31 +313,75 @@ export default function AddProduct() {
                 </div>
 
                 {/* freebies */}
-                <div className="flex flex-col gap-3 relative w-full border-none items-start">
+                <div className="flex flex-col gap-1 relative w-full border-none items-start">
                   {/* free delivery */}
                   <div className="flex items-center gap-2">
                     <label className="text-nowrap text-sm flex items-center gap-1">
                       <input
                         type="checkbox"
-                        id="deliveryIncluded"
-                        checked={formData.deliveryIncluded}
+                        id="logistics_included"
+                        checked={formData.logistics_included}
                         onChange={handleChange}
                       />
                       Free Delivery
                     </label>
                   </div>
 
-                  {/* free gift */}
-                  <div className="flex items-center">
+                  {/* pay delivery */}
+                  <div className="flex items-center gap-2">
                     <label className="text-nowrap text-sm flex items-center gap-1">
                       <input
                         type="checkbox"
-                        id="freeGift"
-                        checked={formData.freeGift}
+                        id="payondelivery"
+                        checked={formData.payondelivery}
                         onChange={handleChange}
                       />
-                      Free Gift(s)
+                      Pay on Delivery
                     </label>
+                  </div>
+
+                  {/* free gift */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center">
+                      <label className="text-nowrap text-sm flex items-center gap-1">
+                        <input
+                          type="checkbox"
+                          id="freeGift"
+                          checked={formData.freeGift}
+                          onChange={handleChange}
+                        />
+                        Free Gift(s)
+                      </label>
+                    </div>
+
+                    {formData.freeGift && (
+                      <div className="flex items-center gap-1">
+                        <div className="flex items-center w-40">
+                          <label className="text-nowrap text-sm flex items-center gap-1">
+                            No of Freebies
+                            <input
+                              type="number"
+                              id="number_of_freebies"
+                              value={formData.number_of_freebies || ""}
+                              onChange={handleChange}
+                              className="w-full sm:w-1/4 pl-2 pr-3 py-2 border border-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border focus:border-red-700"
+                            />
+                          </label>
+                        </div>
+                        <div className="flex items-center w-56">
+                          <label className="text-nowrap text-sm flex items-center gap-1">
+                            Total Value
+                            <input
+                              type="number"
+                              id="total_value"
+                              value={formData.total_value || ""}
+                              onChange={handleChange}
+                              className="w-full sm:w-1/4 pl-2 pr-3 py-2 border border-gray-700 placeholder-gray-400 transition duration-200 flex-1 text-xs outline-none ring-0 focus:ring-0 focus:outline-none focus:border focus:border-red-700"
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

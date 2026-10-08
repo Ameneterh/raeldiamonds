@@ -3,8 +3,19 @@ import Product from "../models/product.model.js";
 // save post
 export const addProduct = async (req, res) => {
   try {
-    const { product_name, category_name, sub_category, description, addedBy } =
-      req.body;
+    const {
+      category_name,
+      description,
+      freeGift,
+      logistics_included,
+      freebies,
+      price,
+      product_name,
+      sub_category,
+      images,
+      payondelivery,
+      addedBy,
+    } = req.body;
 
     // Validate required fields
     if (!product_name || !category_name || !description || !addedBy) {
@@ -24,11 +35,17 @@ export const addProduct = async (req, res) => {
       .replace(/-+/g, "-");
 
     const product = await Product.create({
-      product_name,
       slug,
       category_name,
-      sub_category,
       description,
+      freeGift,
+      logistics_included,
+      freebies,
+      price,
+      product_name,
+      sub_category,
+      images,
+      payondelivery,
       addedBy,
     });
 

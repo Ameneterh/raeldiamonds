@@ -18,6 +18,7 @@ const productSchema = new mongoose.Schema(
     category_name: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
+      // type: String,
       required: true,
       index: true,
     },
@@ -41,15 +42,15 @@ const productSchema = new mongoose.Schema(
 
     logistics_included: { type: Boolean, required: true, default: false },
 
-    freebies: [
-      {
-        gift_name: String,
-        number_included: Number,
-        totalValue: { type: Number, default: 0 },
-      },
-    ],
-
     payondelivery: { type: Boolean, default: false },
+
+    freeGift: { type: Boolean, default: false },
+
+    freebies: {
+      // gift_name: String,
+      number_of_freebies: { type: Number, default: 0 },
+      total_value: { type: Number, default: 0 },
+    },
 
     reviews: [
       {

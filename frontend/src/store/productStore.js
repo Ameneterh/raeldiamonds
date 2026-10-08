@@ -16,21 +16,36 @@ export const useProductStore = create((set) => ({
 
   // add new product
   addProduct: async ({
-    product_name,
     category_name,
-    sub_category,
     description,
+    freeGift,
+    logistics_included,
+    freebies,
+    price,
+    product_name,
+    sub_category,
+    images,
+    payondelivery,
     addedBy,
   }) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${API_URL}/add-product`, {
-        product_name,
         category_name,
-        sub_category,
         description,
+        freeGift,
+        logistics_included,
+        freebies,
+        price,
+        product_name,
+        sub_category,
+        images,
+        payondelivery,
         addedBy,
       });
+
+      console.log("Product added successfully:", response.data.product);
+
       set({
         product: response.data.product,
         isLoading: false,

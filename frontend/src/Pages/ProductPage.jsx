@@ -135,13 +135,17 @@ export default function ProductPage() {
                 </span>
               </div>
 
-              {product?.freebies?.length > 0 ? (
-                <div className="flex flex-col bg-green-800 text-white py-1 px-3 rounded mt-2 w-fit">
+              {product?.freebies ? (
+                <div className="flex flex-col bg-yellow-700 text-white py-1 px-3 rounded mt-2 w-fit">
                   <p className="text-sm font-bold">Free Package:</p>
                   <p className="text-sm">
-                    {product?.freebies?.length} gifts included
+                    {product?.freebies?.number_of_freebies} gifts included
                   </p>
                   <p className="text-sm">
+                    Total Value: ₦
+                    {product?.freebies?.total_value.toLocaleString()}
+                  </p>
+                  {/* <p className="text-sm">
                     Total Value: ₦
                     {product?.freebies
                       ?.reduce(
@@ -149,7 +153,7 @@ export default function ProductPage() {
                         0,
                       )
                       .toLocaleString()}
-                  </p>
+                  </p> */}
                 </div>
               ) : (
                 <></>
@@ -164,12 +168,14 @@ export default function ProductPage() {
                       .join(" & ")}
                   </p>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4">
-                  <p className="text-nowrap col-span-1">Sub Category:</p>
-                  <p className="capitalize col-span-1 md:col-span-3">
-                    {product?.sub_category}
-                  </p>
-                </div>
+                {product?.sub_category && (
+                  <div className="grid grid-cols-2 md:grid-cols-4">
+                    <p className="text-nowrap col-span-1">Sub Category:</p>
+                    <p className="capitalize col-span-1 md:col-span-3">
+                      {product?.sub_category} Watches
+                    </p>
+                  </div>
+                )}
                 <div className="grid grid-cols-2 md:grid-cols-4">
                   <p className="text-nowrap col-span-1">Pay on Delivery:</p>
                   <p
