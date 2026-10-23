@@ -64,13 +64,18 @@ export default function HeaderComponent() {
 
       {/* links */}
       <ul className="hidden sm:flex gap-5 text-sm text-gray-800">
-        <NavLink
-          to="/"
-          className={`flex flex-col items-center hover:scale-110 transition-all duration-300`}
-        >
-          <p>Home</p>
-          <hr className="w-full border-none h-[1.5px] bg-gray-800 hidden" />
-        </NavLink>
+        {user ? (
+          <></>
+        ) : (
+          <NavLink
+            to="/"
+            className={`flex flex-col items-center hover:scale-110 transition-all duration-300`}
+          >
+            <p>Home</p>
+            <hr className="w-full border-none h-[1.5px] bg-gray-800 hidden" />
+          </NavLink>
+        )}
+
         <NavLink
           to="/collections"
           className={`flex flex-col items-center hover:scale-110 transition-all duration-300`}
@@ -158,7 +163,7 @@ export default function HeaderComponent() {
           </div>
         ) : (
           <Link
-            to="/login"
+            to="/user-login"
             className="bg-blue-600 hover:bg-blue-900 hover:scale-110 transition-all duration-300 rounded px-4 py-1 text-lg text-white cursor-pointer"
           >
             Login

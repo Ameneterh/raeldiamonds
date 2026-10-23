@@ -82,7 +82,7 @@ function App() {
           }
         />
         <Route
-          path="/login"
+          path="/user-login"
           element={
             isAuthenticated && user?.status === "active" ? (
               <Navigate to="/user-dashboard?tab=dash" replace />
@@ -91,6 +91,17 @@ function App() {
             )
           }
         />
+        <Route
+          path="/register"
+          element={
+            isAuthenticated && user?.status === "active" ? (
+              <Navigate to="/user-dashboard?tab=dash" replace />
+            ) : (
+              <RegistrationPage />
+            )
+          }
+        />
+
         {/* protected routes */}
         <Route
           path="/user-dashboard"
@@ -100,6 +111,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         {/* private routes for only authenticated users */}
         <Route
           path="/reset-password"
@@ -109,7 +121,7 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
-        <Route
+        {/* <Route
           path="/user-login"
           element={
             <RedirectAuthenticatedUser>
@@ -117,15 +129,22 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
+        <Route
+          path="/register"
+          element={
+            <RedirectAuthenticatedUser>
+              <RegistrationPage />
+            </RedirectAuthenticatedUser>
+          }
+        /> */}
+
         {/* unprotected routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/collections" element={<CollectionsPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/product/:slug" element={<ProductPage />} />
-        <Route path="/register" element={<RegistrationPage />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "antd";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { categories } from "../assets/assets";
+import { useCategoryStore } from "../store/categoryStore";
+import { useAuthStore } from "../store/authStore";
 
 export default function HeroComponent() {
   const date = new Date();
   const navigate = useNavigate();
+  const { user } = useAuthStore();
+  const { getCategories, error } = useCategoryStore();
+
+  const [categories, setCategories] = useState([]);
+
+  //   getting categories
+  const getAllCategories = async () => {
+    try {
+      const { categories } = await getCategories();
+      setCategories(categories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllCategories();
+  }, [user]);
 
   return (
     <div className="w-full min-h-[80svh] flex items-center justify-between flex-col pt-10 sm:pt-0 sm:flex-row relative">

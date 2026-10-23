@@ -34,6 +34,8 @@ export default function DashSidebar() {
     }
   }, [location.search]);
 
+  console.log("user", user);
+
   const handleLogout = () => {
     try {
       logout();
@@ -92,19 +94,18 @@ export default function DashSidebar() {
             </>
           )}
 
-          {user.isAdmin ||
-            (user.role === "architect" && (
-              <>
-                <Link to="/user-dashboard?tab=users">
-                  <Sidebar.Item
-                    active={tab === "users"}
-                    icon={HiOutlineUserGroup}
-                    as="div"
-                  >
-                    User List
-                  </Sidebar.Item>
-                </Link>
-                {/* <Link to="/user-dashboard?tab=businesses">
+          {user.isAdmin && (
+            <>
+              <Link to="/user-dashboard?tab=users">
+                <Sidebar.Item
+                  active={tab === "users"}
+                  icon={HiOutlineUserGroup}
+                  as="div"
+                >
+                  User List
+                </Sidebar.Item>
+              </Link>
+              {/* <Link to="/user-dashboard?tab=businesses">
                   <Sidebar.Item
                     active={tab === "businesses"}
                     icon={HiAnnotation}
@@ -114,25 +115,25 @@ export default function DashSidebar() {
                   </Sidebar.Item>
                 </Link> */}
 
-                <Link to="/user-dashboard?tab=category-list">
-                  <Sidebar.Item
-                    icon={MdOutlineContentPasteGo}
-                    as="div"
-                    className="text-nowrap"
-                  >
-                    Category List
-                  </Sidebar.Item>
-                </Link>
-                <Link to="/user-dashboard?tab=products">
-                  <Sidebar.Item
-                    icon={AiOutlineProduct}
-                    as="div"
-                    className="text-nowrap"
-                  >
-                    Product List
-                  </Sidebar.Item>
-                </Link>
-                {/* <Link to="/user-dashboard?tab=add-product">
+              <Link to="/user-dashboard?tab=category-list">
+                <Sidebar.Item
+                  icon={MdOutlineContentPasteGo}
+                  as="div"
+                  className="text-nowrap"
+                >
+                  Category List
+                </Sidebar.Item>
+              </Link>
+              <Link to="/user-dashboard?tab=products">
+                <Sidebar.Item
+                  icon={AiOutlineProduct}
+                  as="div"
+                  className="text-nowrap"
+                >
+                  Product List
+                </Sidebar.Item>
+              </Link>
+              {/* <Link to="/user-dashboard?tab=add-product">
                   <Sidebar.Item
                     icon={AiOutlineProduct}
                     as="div"
@@ -141,8 +142,8 @@ export default function DashSidebar() {
                     Add Product
                   </Sidebar.Item>
                 </Link> */}
-              </>
-            ))}
+            </>
+          )}
 
           <Sidebar.Item
             icon={HiArrowSmRight}
